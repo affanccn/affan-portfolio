@@ -261,16 +261,16 @@ function ProjectDetail({ project, onBack }) {
   const IconComp = project.icon;
 
   return (
-    <div style={{ height: '100%', overflowY: 'auto', padding: '24px' }}>
+    <div style={{ height: '100%', overflowY: 'auto', padding: '16px' }}>
       <button
         type="button"
         onClick={onBack}
         style={{
           display: 'inline-flex', alignItems: 'center', gap: '6px',
           background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: '6px', color: '#cbd5e1', padding: '6px 14px',
-          fontSize: '12px', fontWeight: 600, marginBottom: '20px',
-          transition: 'all 0.15s',
+          borderRadius: '6px', color: '#cbd5e1', padding: '8px 14px',
+          fontSize: '12px', fontWeight: 600, marginBottom: '18px',
+          transition: 'all 0.15s', cursor: 'pointer',
         }}
         onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,245,255,0.12)'; e.currentTarget.style.color = '#00F5FF'; }}
         onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#cbd5e1'; }}
@@ -280,8 +280,8 @@ function ProjectDetail({ project, onBack }) {
 
       {/* Hero Header / Banner */}
       <div style={{
-        height: '210px', borderRadius: '12px', overflow: 'hidden',
-        marginBottom: '22px', position: 'relative',
+        height: '180px', borderRadius: '12px', overflow: 'hidden',
+        marginBottom: '20px', position: 'relative',
         background: project.image ? '#0a0a14' : 'linear-gradient(135deg, #0d0d20 0%, #170d2e 100%)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         border: '1px solid rgba(255,255,255,0.08)',
@@ -297,13 +297,13 @@ function ProjectDetail({ project, onBack }) {
           />
         ) : (
           <div style={{
-            width: '80px', height: '80px', borderRadius: '20px',
+            width: '70px', height: '70px', borderRadius: '16px',
             background: 'rgba(0,0,0,0.5)', display: 'flex',
             alignItems: 'center', justifyContent: 'center',
             border: `2px solid ${project.iconColor}55`,
             boxShadow: `0 0 30px ${project.iconColor}33`,
           }}>
-            <IconComp size={40} color={project.iconColor} aria-hidden="true" />
+            <IconComp size={36} color={project.iconColor} aria-hidden="true" />
           </div>
         )}
         <div style={{
@@ -313,13 +313,13 @@ function ProjectDetail({ project, onBack }) {
 
         {/* Floating tier badge */}
         <div style={{
-          position: 'absolute', top: '16px', right: '16px',
+          position: 'absolute', top: '12px', right: '12px',
           display: 'flex', alignItems: 'center', gap: '6px',
-          padding: '4px 12px', borderRadius: '20px',
+          padding: '4px 10px', borderRadius: '20px',
           background: project.tier === 'featured' ? 'rgba(0,245,255,0.2)' : 'rgba(255,255,255,0.1)',
           border: project.tier === 'featured' ? '1px solid rgba(0,245,255,0.45)' : '1px solid rgba(255,255,255,0.15)',
           color: project.tier === 'featured' ? '#00F5FF' : '#cbd5e1',
-          fontSize: '11px', fontFamily: 'monospace', fontWeight: 700,
+          fontSize: '10.5px', fontFamily: 'monospace', fontWeight: 700,
           backdropFilter: 'blur(10px)',
         }}>
           {project.tier === 'featured' && <Star size={12} fill="#00F5FF" aria-hidden="true" />}
@@ -327,21 +327,21 @@ function ProjectDetail({ project, onBack }) {
         </div>
       </div>
 
-      <div style={{ marginBottom: '6px', color: project.iconColor, fontFamily: 'monospace', fontSize: '12.5px', fontWeight: 700 }}>
+      <div style={{ marginBottom: '6px', color: project.iconColor, fontFamily: 'monospace', fontSize: '12px', fontWeight: 700 }}>
         {project.subtitle}
       </div>
 
-      <h2 style={{ color: '#ffffff', fontSize: '24px', fontWeight: 800, margin: '0 0 16px', letterSpacing: '-0.02em' }}>
+      <h2 style={{ color: '#ffffff', fontSize: '20px', fontWeight: 800, margin: '0 0 14px', letterSpacing: '-0.02em', lineHeight: 1.3 }}>
         {project.title}
       </h2>
 
       {/* Tags */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
         {project.tags.map(tag => (
           <span key={tag} style={{
-            padding: '4px 12px', borderRadius: '6px',
+            padding: '3px 10px', borderRadius: '6px',
             background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
-            color: '#e2e8f0', fontSize: '11.5px', fontFamily: 'monospace', fontWeight: 500,
+            color: '#e2e8f0', fontSize: '11px', fontFamily: 'monospace', fontWeight: 500,
           }}>
             {tag}
           </span>
@@ -349,27 +349,27 @@ function ProjectDetail({ project, onBack }) {
       </div>
 
       {/* Engineering Problem & Solution Breakdown */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '14px', marginBottom: '20px' }}>
         <div style={{
-          padding: '16px', borderRadius: '10px',
+          padding: '14px', borderRadius: '10px',
           background: 'rgba(248, 113, 113, 0.05)', border: '1px solid rgba(248, 113, 113, 0.2)',
         }}>
           <div style={{ color: '#f87171', fontSize: '11px', fontFamily: 'monospace', fontWeight: 700, marginBottom: '6px' }}>
             // PROBLEM TANIMI
           </div>
-          <p style={{ color: '#cbd5e1', fontSize: '13px', lineHeight: 1.65, margin: 0 }}>
+          <p style={{ color: '#cbd5e1', fontSize: '12.5px', lineHeight: 1.6, margin: 0 }}>
             {project.problem}
           </p>
         </div>
 
         <div style={{
-          padding: '16px', borderRadius: '10px',
+          padding: '14px', borderRadius: '10px',
           background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)',
         }}>
           <div style={{ color: '#34d399', fontSize: '11px', fontFamily: 'monospace', fontWeight: 700, marginBottom: '6px' }}>
             // MİMARİ VE ÇÖZÜM
           </div>
-          <p style={{ color: '#cbd5e1', fontSize: '13px', lineHeight: 1.65, margin: 0 }}>
+          <p style={{ color: '#cbd5e1', fontSize: '12.5px', lineHeight: 1.6, margin: 0 }}>
             {project.solution}
           </p>
         </div>
@@ -378,14 +378,14 @@ function ProjectDetail({ project, onBack }) {
       {/* Technical Highlights */}
       {project.highlights && (
         <div style={{
-          padding: '18px', borderRadius: '10px',
+          padding: '16px', borderRadius: '10px',
           background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
-          marginBottom: '24px',
+          marginBottom: '20px',
         }}>
-          <div style={{ color: '#00F5FF', fontSize: '12px', fontFamily: 'monospace', fontWeight: 700, marginBottom: '12px' }}>
+          <div style={{ color: '#00F5FF', fontSize: '11.5px', fontFamily: 'monospace', fontWeight: 700, marginBottom: '10px' }}>
             TEKNİK ÖNE ÇIKANLAR
           </div>
-          <ul style={{ margin: 0, paddingLeft: '18px', color: '#94a3b8', fontSize: '13px', lineHeight: 1.8 }}>
+          <ul style={{ margin: 0, paddingLeft: '16px', color: '#94a3b8', fontSize: '12.5px', lineHeight: 1.7 }}>
             {project.highlights.map((h, i) => (
               <li key={i}>{h}</li>
             ))}
@@ -394,7 +394,7 @@ function ProjectDetail({ project, onBack }) {
       )}
 
       {/* Action Buttons */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
         {project.liveDemo && (
           <a
             href={project.liveDemo}
@@ -402,13 +402,13 @@ function ProjectDetail({ project, onBack }) {
             rel="noopener noreferrer"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '12px 20px', borderRadius: '8px',
+              padding: '10px 18px', borderRadius: '8px',
               background: 'rgba(255,0,200,0.15)', border: '1px solid rgba(255,0,200,0.4)',
-              color: '#ff52d9', fontSize: '13px', fontWeight: 600,
+              color: '#ff52d9', fontSize: '12.5px', fontWeight: 600,
               textDecoration: 'none', transition: 'all 0.15s',
             }}
           >
-            <ExternalLink size={16} aria-hidden="true" /> Canlı Demoyu Ziyaret Et
+            <ExternalLink size={15} aria-hidden="true" /> Canlı Demoyu Ziyaret Et
           </a>
         )}
 
@@ -419,24 +419,24 @@ function ProjectDetail({ project, onBack }) {
             rel="noopener noreferrer"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '12px 20px', borderRadius: '8px',
+              padding: '10px 18px', borderRadius: '8px',
               background: 'rgba(0,245,255,0.12)', border: '1px solid rgba(0,245,255,0.35)',
-              color: '#00F5FF', fontSize: '13px', fontWeight: 600,
+              color: '#00F5FF', fontSize: '12.5px', fontWeight: 600,
               textDecoration: 'none', transition: 'all 0.15s',
             }}
           >
-            <Code size={16} aria-hidden="true" /> GitHub Kodlarını İncele
+            <Code size={15} aria-hidden="true" /> GitHub Kodlarını İncele
           </a>
         ) : (
           <div
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '12px 18px', borderRadius: '8px',
+              padding: '10px 16px', borderRadius: '8px',
               background: 'rgba(148,163,184,0.06)', border: '1px solid rgba(148,163,184,0.15)',
-              color: '#94a3b8', fontSize: '12.5px', fontFamily: 'monospace',
+              color: '#94a3b8', fontSize: '12px', fontFamily: 'monospace',
             }}
           >
-            <Lock size={14} aria-hidden="true" /> {project.repoStatus}
+            <Lock size={13} aria-hidden="true" /> {project.repoStatus}
           </div>
         )}
       </div>
@@ -462,14 +462,14 @@ export default function ProjectsApp() {
   }
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#070712' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#070712', minHeight: 0 }}>
       {/* Top Header Bar */}
       <div style={{
-        padding: '12px 20px',
+        padding: '10px 16px',
         background: 'rgba(255,255,255,0.02)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        flexWrap: 'wrap', gap: '10px',
+        display: 'flex', flexDirection: 'column',
+        gap: '10px', flexShrink: 0,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Layers size={16} color="#00F5FF" />
@@ -478,8 +478,14 @@ export default function ProjectsApp() {
           </span>
         </div>
 
-        {/* Filter Pills */}
-        <div style={{ display: 'flex', gap: '6px', overflowX: 'auto' }}>
+        {/* Filter Pills - Yatay Kaydırma Desteği */}
+        <div style={{
+          display: 'flex',
+          gap: '6px',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          paddingBottom: '2px',
+        }}>
           {[
             { id: 'all', label: 'Tümü (10)' },
             { id: 'featured', label: '⭐ Amiral Gemisi (6)' },
@@ -492,12 +498,13 @@ export default function ProjectsApp() {
               type="button"
               onClick={() => setActiveFilter(filter.id)}
               style={{
-                padding: '4px 10px', borderRadius: '6px',
-                border: activeFilter === filter.id ? '1px solid rgba(0,245,255,0.4)' : '1px solid rgba(255,255,255,0.08)',
-                background: activeFilter === filter.id ? 'rgba(0,245,255,0.12)' : 'rgba(255,255,255,0.02)',
+                padding: '5px 12px', borderRadius: '6px',
+                border: activeFilter === filter.id ? '1px solid rgba(0,245,255,0.45)' : '1px solid rgba(255,255,255,0.08)',
+                background: activeFilter === filter.id ? 'rgba(0,245,255,0.15)' : 'rgba(255,255,255,0.03)',
                 color: activeFilter === filter.id ? '#00F5FF' : '#94a3b8',
                 fontSize: '11px', fontWeight: 600, cursor: 'pointer',
-                transition: 'all 0.12s',
+                whiteSpace: 'nowrap', flexShrink: 0,
+                transition: 'all 0.15s ease',
               }}
             >
               {filter.label}
@@ -506,11 +513,15 @@ export default function ProjectsApp() {
         </div>
       </div>
 
-      {/* Projects Grid Container */}
+      {/* Projects Grid / Flex Container */}
       <div style={{
-        flex: 1, overflowY: 'auto', padding: '20px',
+        flex: 1,
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        padding: '16px',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 310px), 1fr))',
+        gridAutoRows: 'auto',
         gap: '14px',
         alignContent: 'start',
       }}>
@@ -520,40 +531,54 @@ export default function ProjectsApp() {
 
           return (
             <button
-              key={project.id}
+              key={`${activeFilter}-${project.id}`}
               type="button"
               onClick={() => setSelected(project)}
               aria-label={`${project.title} ayrıntılarını aç`}
               style={{
-                display: 'flex', flexDirection: 'column',
-                padding: '16px', borderRadius: '12px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                width: '100%',
+                height: 'auto',
+                minHeight: '190px',
+                padding: '16px',
+                borderRadius: '12px',
                 background: isFeatured ? 'rgba(0, 245, 255, 0.04)' : 'rgba(255, 255, 255, 0.02)',
-                border: isFeatured ? '1px solid rgba(0, 245, 255, 0.25)' : '1px solid rgba(255, 255, 255, 0.07)',
-                textAlign: 'left', cursor: 'pointer',
-                transition: 'all 0.16s',
-                position: 'relative', overflow: 'hidden',
+                border: isFeatured ? '1px solid rgba(0, 245, 255, 0.25)' : '1px solid rgba(255, 255, 255, 0.08)',
+                textAlign: 'left',
+                cursor: 'pointer',
+                transition: 'border-color 0.15s ease, background 0.15s ease',
+                position: 'relative',
                 outline: 'none',
+                boxSizing: 'border-box',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.background = isFeatured ? 'rgba(0, 245, 255, 0.09)' : 'rgba(255, 255, 255, 0.05)';
                 e.currentTarget.style.borderColor = isFeatured ? 'rgba(0, 245, 255, 0.5)' : 'rgba(255, 255, 255, 0.18)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = isFeatured ? 'rgba(0, 245, 255, 0.04)' : 'rgba(255, 255, 255, 0.02)';
-                e.currentTarget.style.borderColor = isFeatured ? 'rgba(0, 245, 255, 0.25)' : 'rgba(255, 255, 255, 0.07)';
-                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.borderColor = isFeatured ? 'rgba(0, 245, 255, 0.25)' : 'rgba(255, 255, 255, 0.08)';
               }}
             >
-              {/* Header row with Icon & Tier Badge */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+              {/* Header: İkon ve Rozet */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                marginBottom: '12px',
+                flexShrink: 0,
+              }}>
                 <div style={{
-                  width: '40px', height: '40px', borderRadius: '10px',
+                  width: '38px', height: '38px', borderRadius: '10px',
                   background: `${project.iconColor}18`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   border: `1px solid ${project.iconColor}40`,
+                  flexShrink: 0,
                 }}>
-                  <IconComp size={20} color={project.iconColor} aria-hidden="true" />
+                  <IconComp size={18} color={project.iconColor} aria-hidden="true" />
                 </div>
 
                 {isFeatured ? (
@@ -567,7 +592,7 @@ export default function ProjectsApp() {
                   </span>
                 ) : (
                   <span style={{
-                    color: '#64748b', fontSize: '10px', fontFamily: 'monospace',
+                    color: '#64748b', fontSize: '10px', fontFamily: 'monospace', fontWeight: 600,
                   }}>
                     {project.category.toUpperCase()}
                   </span>
@@ -575,24 +600,53 @@ export default function ProjectsApp() {
               </div>
 
               {/* Title & Subtitle */}
-              <div style={{ fontSize: '14.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
-                {project.title}
-              </div>
-              <div style={{ fontSize: '11.5px', color: project.iconColor, fontFamily: 'monospace', marginBottom: '8px' }}>
-                {project.subtitle}
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '3px', marginBottom: '6px' }}>
+                <span style={{
+                  fontSize: '14px',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  lineHeight: 1.35,
+                  wordBreak: 'break-word',
+                  display: 'block',
+                }}>
+                  {project.title}
+                </span>
+                <span style={{
+                  fontSize: '11px',
+                  color: project.iconColor,
+                  fontFamily: 'monospace',
+                  lineHeight: 1.4,
+                  wordBreak: 'break-word',
+                  display: 'block',
+                }}>
+                  {project.subtitle}
+                </span>
               </div>
 
               {/* Short desc */}
               <p style={{
-                color: '#94a3b8', fontSize: '12px', lineHeight: 1.5,
-                margin: '0 0 14px', flex: 1,
-                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden',
+                color: '#94a3b8',
+                fontSize: '12px',
+                lineHeight: 1.5,
+                margin: '0 0 12px',
+                wordBreak: 'break-word',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
               }}>
                 {project.desc}
               </p>
 
               {/* Tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginTop: 'auto' }}>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '5px',
+                marginTop: 'auto',
+                width: '100%',
+                paddingTop: '6px',
+              }}>
                 {project.tags.slice(0, 3).map(tag => (
                   <span key={tag} style={{
                     padding: '2px 7px', borderRadius: '4px',
@@ -615,14 +669,15 @@ export default function ProjectsApp() {
 
       {/* Footer bar */}
       <div style={{
-        padding: '10px 20px',
+        padding: '10px 16px',
         background: 'rgba(255,255,255,0.02)',
         borderTop: '1px solid rgba(255,255,255,0.05)',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         color: '#64748b', fontSize: '11px', fontFamily: 'monospace',
+        flexShrink: 0,
       }}>
         <span>{filteredProjects.length} proje gösteriliyor</span>
-        <span>Ayrıntılı teknik analiz için kartları tıklayın</span>
+        <span style={{ display: 'none', smDisplay: 'inline' }}>Ayrıntılı teknik analiz için kartları tıklayın</span>
       </div>
     </div>
   );
