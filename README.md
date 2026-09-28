@@ -3,7 +3,7 @@
 Source code for my personal developer portfolio, highlighting core engineering competencies, production projects, and contact details.
 
 ## Live Demo
-Check out the live deployment: https://affan-portfolio-gilt.vercel.app/
+Check out the live deployment: https://www.affanccn.com
 
 ## Tech Stack
 - **Frontend:** React.js / Modern JavaScript, CSS3 / Tailwind CSS
