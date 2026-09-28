@@ -366,7 +366,7 @@ export default function AboutApp() {
 
           <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', width: '100%', maxWidth: '280px' }}>
             <a
-              href="https://github.com/emrhnccn"
+              href="https://github.com/affanccn"
               target="_blank"
               rel="noopener noreferrer"
               style={{
