@@ -23,7 +23,7 @@ const BOOKMARKS = [
   { label: 'Ersa Ticaret', url: 'https://github.com/emrhnccn/ersa-ticaret',  icon: '🛍️' },
   { label: 'Ersa Soğutma', url: 'https://github.com/emrhnccn/ersasogutma',   icon: '❄️' },
   { label: 'AffanOS',      url: 'https://affan-portfolio-gilt.vercel.app/', icon: '💻' },
-  { label: 'GitHub',       url: 'https://github.com/emrhnccn',              icon: '🐙' },
+  { label: 'GitHub',       url: 'https://github.com/affanccn',              icon: '🐙' },
   { label: 'LinkedIn',     url: 'https://linkedin.com/in/affanccn',          icon: '💼' },
 ];
 
