@@ -103,7 +103,7 @@ export default function MobileShell({ apps, onOpenApp, onMuteToggle, muted }) {
             <span>CV İndir</span>
           </a>
           <a
-            href="https://github.com/emrhnccn"
+            href="https://github.com/affanccn"
             target="_blank"
             rel="noopener noreferrer"
             className="mobile-shell__quick-link"
