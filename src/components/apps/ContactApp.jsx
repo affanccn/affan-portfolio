@@ -173,7 +173,7 @@ export default function ContactApp() {
                   <span style={{ fontSize: '18px' }}>🐙</span>
                   <div>
                     <div style={{ fontSize: '13px', fontWeight: 700 }}>GitHub</div>
-                    <div style={{ color: '#00F5FF', fontSize: '11px', fontFamily: 'monospace' }}>github.com/emrhnccn</div>
+                    <div style={{ color: '#00F5FF', fontSize: '11px', fontFamily: 'monospace' }}>github.com/affanccn</div>
                   </div>
                 </div>
                 <ExternalLink size={14} color="#00F5FF" />
