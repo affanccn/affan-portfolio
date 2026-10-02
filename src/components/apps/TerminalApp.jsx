@@ -69,7 +69,7 @@ export default function TerminalApp() {
         newHistory.push({ type: 'output', text: '🎓 Bartın Üniversitesi — Bilgisayar Mühendisliği (2022 - Devam)\n🎓 Fırat Üniversitesi — Bilgisayar Mühendisliği (2019 - 2022)' });
         break;
       case 'iletisim':
-        newHistory.push({ type: 'output', text: 'E-posta  : emrhn.ccn@gmail.com\nLinkedIn : /in/affanccn\nGitHub   : /emrhnccn' });
+        newHistory.push({ type: 'output', text: 'E-posta  : emrhn.ccn@gmail.com\nLinkedIn : /in/affanccn\nGitHub   : /affanccn' });
         break;
       case 'temizle': case 'clear':
         setHistory([]);

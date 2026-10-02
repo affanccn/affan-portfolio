@@ -113,8 +113,8 @@ export default function CVApp() {
               <a href="https://linkedin.com/in/affanccn" target="_blank" rel="noopener noreferrer" style={{ color: '#00F5FF', textDecoration: 'none' }}>
                 🔗 linkedin.com/in/affanccn
               </a>
-              <a href="https://github.com/emrhnccn" target="_blank" rel="noopener noreferrer" style={{ color: '#00F5FF', textDecoration: 'none' }}>
-                🐙 github.com/emrhnccn
+              <a href="https://github.com/affanccn" target="_blank" rel="noopener noreferrer" style={{ color: '#00F5FF', textDecoration: 'none' }}>
+                🐙 github.com/affanccn
               </a>
             </div>
           </div>

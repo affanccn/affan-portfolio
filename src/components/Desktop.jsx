@@ -492,7 +492,7 @@ export default function Desktop() {
           </button>
 
           <a
-            href="https://github.com/emrhnccn"
+            href="https://github.com/affanccn"
             target="_blank"
             rel="noopener noreferrer"
             className="command-center__btn command-center__btn--ghost"

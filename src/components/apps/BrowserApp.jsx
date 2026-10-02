@@ -19,9 +19,9 @@ function isBlockedDomain(url) {
 const BOOKMARKS = [
   { label: 'GustoPos',     url: 'https://gusto-pos-two.vercel.app',         icon: '🖥️' },
   { label: 'Salaas',       url: 'https://salaascaferestaurant.com.tr',      icon: '🍽️' },
-  { label: 'RealTimeChat', url: 'https://github.com/emrhnccn/RealTimeChat',  icon: '💬' },
-  { label: 'Ersa Ticaret', url: 'https://github.com/emrhnccn/ersa-ticaret',  icon: '🛍️' },
-  { label: 'Ersa Soğutma', url: 'https://github.com/emrhnccn/ersasogutma',   icon: '❄️' },
+  { label: 'RealTimeChat', url: 'https://github.com/affanccn/RealTimeChat',  icon: '💬' },
+  { label: 'Ersa Ticaret', url: 'https://github.com/affanccn/ersa-ticaret',  icon: '🛍️' },
+  { label: 'Ersa Soğutma', url: 'https://github.com/affanccn/ersasogutma',   icon: '❄️' },
   { label: 'AffanOS',      url: 'https://affanccn.com/', icon: '💻' },
   { label: 'GitHub',       url: 'https://github.com/affanccn',              icon: '🐙' },
   { label: 'LinkedIn',     url: 'https://linkedin.com/in/affanccn',          icon: '💼' },
@@ -103,9 +103,9 @@ function HomeDashboard({ theme, onNavigate }) {
   const quickLinks = [
     { label: 'GustoPos POS',      url: 'https://gusto-pos-two.vercel.app',        icon: '🖥️' },
     { label: 'Salaas Rezervasyon',url: 'https://salaascaferestaurant.com.tr',     icon: '🍽️' },
-    { label: 'RealTimeChat',      url: 'https://github.com/emrhnccn/RealTimeChat', icon: '💬' },
-    { label: 'Ersa Ticaret',      url: 'https://github.com/emrhnccn/ersa-ticaret', icon: '🛍️' },
-    { label: 'Ersa Soğutma',      url: 'https://github.com/emrhnccn/ersasogutma',  icon: '❄️' },
+    { label: 'RealTimeChat',      url: 'https://github.com/affanccn/RealTimeChat', icon: '💬' },
+    { label: 'Ersa Ticaret',      url: 'https://github.com/affanccn/ersa-ticaret', icon: '🛍️' },
+    { label: 'Ersa Soğutma',      url: 'https://github.com/affanccn/ersasogutma',  icon: '❄️' },
     { label: 'AffanOS Portföy',   url: 'https://affanccn.com/',icon: '💻' },
     { label: 'GitHub Profili',    url: 'https://github.com/affanccn',             icon: '🐙' },
     { label: 'LinkedIn Profili',  url: 'https://linkedin.com/in/affanccn',         icon: '💼' },
@@ -127,7 +127,7 @@ function HomeDashboard({ theme, onNavigate }) {
           AffanOS Browser
         </div>
         <div style={{ color: '#475569', fontSize: '12px', marginTop: '4px', fontFamily: 'monospace' }}>
-          emrhnccn / portfolyo
+          affanccn / portfolyo
         </div>
       </div>
 
