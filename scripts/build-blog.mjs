@@ -12,52 +12,105 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.resolve(__dirname, '../content/blog');
 const OUTPUT_PATH = path.resolve(__dirname, '../src/data/blogPosts.js');
 
-// ─── YAML Frontmatter Parse ─────────────────────────────────────────────────
+// ─── YAML Frontmatter & Markdown Meta Parse ──────────────────────────────────
 function parseFrontmatter(content) {
-  const match = content.match(/^(?:([\s\S]*?)\n)?---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-  if (!match) return { meta: {}, body: content };
+  let meta = {};
+  let body = content;
 
-  const meta = {};
-  const preMatter = match[1] ? match[1].trim() + '\n\n' : '';
-  const frontmatterStr = match[2];
-  const postMatter = match[3];
+  // 1) Try standard YAML frontmatter
+  const yamlMatch = content.match(/^(?:([\s\S]*?)\n)?---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+  if (yamlMatch) {
+    const preMatter = yamlMatch[1] ? yamlMatch[1].trim() + '\n\n' : '';
+    const frontmatterStr = yamlMatch[2];
+    const postMatter = yamlMatch[3];
+    body = preMatter + postMatter;
 
-  let currentKey = null;
-  let arrayValues = [];
-  let arrayMode = false;
+    let currentKey = null;
+    let arrayValues = [];
+    let arrayMode = false;
 
-  for (const line of frontmatterStr.split('\n')) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
+    for (const line of frontmatterStr.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
 
-    if (arrayMode && trimmed.startsWith('- ')) {
-      arrayValues.push(trimmed.replace(/^-\s*/, '').replace(/^["']|["']$/g, ''));
-      continue;
-    }
-    if (arrayMode && currentKey) {
-      meta[currentKey] = arrayValues;
-      arrayMode = false;
-      arrayValues = [];
-    }
-
-    const kv = trimmed.match(/^(\w+)\s*:\s*(.*)$/);
-    if (kv) {
-      const [, key, raw] = kv;
-      let value = raw.trim();
-
-      if (value.startsWith('[') && value.endsWith(']')) {
-        meta[key] = value.slice(1, -1).split(',').map(v => v.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+      if (arrayMode && trimmed.startsWith('- ')) {
+        arrayValues.push(trimmed.replace(/^-\s*/, '').replace(/^["']|["']$/g, ''));
         continue;
       }
-      if (value === '' || value === '[]') { currentKey = key; arrayMode = true; arrayValues = []; continue; }
-      if (value === 'true') { meta[key] = true; continue; }
-      if (value === 'false') { meta[key] = false; continue; }
-      meta[key] = value.replace(/^["']|["']$/g, '');
-    }
-  }
-  if (arrayMode && currentKey) meta[currentKey] = arrayValues;
+      if (arrayMode && currentKey) {
+        meta[currentKey] = arrayValues;
+        arrayMode = false;
+        arrayValues = [];
+      }
 
-  return { meta, body: preMatter + postMatter };
+      const kv = trimmed.match(/^(\w+)\s*:\s*(.*)$/);
+      if (kv) {
+        const [, key, raw] = kv;
+        let value = raw.trim();
+
+        if (value.startsWith('[') && value.endsWith(']')) {
+          meta[key] = value.slice(1, -1).split(',').map(v => v.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+          continue;
+        }
+        if (value === '' || value === '[]') { currentKey = key; arrayMode = true; arrayValues = []; continue; }
+        if (value === 'true') { meta[key] = true; continue; }
+        if (value === 'false') { meta[key] = false; continue; }
+        meta[key] = value.replace(/^["']|["']$/g, '');
+      }
+    }
+    if (arrayMode && currentKey) meta[currentKey] = arrayValues;
+    return { meta, body };
+  }
+
+  // 2) Try Markdown list format parsing (Spark fallback)
+  // Example: - **URL Slug:** my-slug
+  let titleMatch = content.match(/^#\s+(.+)/);
+  if (titleMatch) meta.title = titleMatch[1].trim();
+
+  const lines = content.split('\n');
+  let newBodyLines = [];
+  let inMetaBlock = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    // Check if line is a meta list item
+    const metaItemMatch = line.match(/^-\s+\*\*([^\*]+):\*\*\s*(.*)$/);
+    if (metaItemMatch) {
+      inMetaBlock = true;
+      const keyRaw = metaItemMatch[1].toLowerCase().trim();
+      const val = metaItemMatch[2].trim();
+      
+      if (keyRaw.includes('slug')) meta.slug = val;
+      else if (keyRaw.includes('açıklama') || keyRaw.includes('desc')) meta.excerpt = val;
+      else if (keyRaw.includes('kategori')) meta.category = val;
+      else if (keyRaw.includes('odak anahtar') || keyRaw.includes('focus')) meta.focusKeyword = val;
+      else if (keyRaw.includes('ikincil anahtar') || keyRaw.includes('secondary')) meta.secondaryKeywords = val.split(',').map(k=>k.trim());
+      else if (keyRaw.includes('etiket') || keyRaw.includes('tag')) meta.tags = val.split(',').map(k=>k.trim());
+      else if (keyRaw.includes('okuma') || keyRaw.includes('read')) meta.readTime = val;
+      continue;
+    }
+
+    if (inMetaBlock && line.trim() === '---') {
+      inMetaBlock = false; // end of meta block
+      continue;
+    }
+
+    if (inMetaBlock && (line.trim() === '' || line.toLowerCase().includes('meta bilgileri'))) {
+      continue; // Skip empty lines or Meta headers in meta block
+    }
+    
+    // If we've passed the meta block and title, add to body
+    // We optionally remove the main title from the body if we want, but let's keep it or remove it.
+    // Let's remove the first H1 if it's the title to avoid duplication
+    if (line.startsWith('# ') && !inMetaBlock && newBodyLines.length < 3) {
+      continue; // skip the title line from body
+    }
+
+    newBodyLines.push(line);
+  }
+
+  return { meta, body: newBodyLines.join('\n').trim() };
 }
 
 // ─── Slug oluştur ───────────────────────────────────────────────────────────
