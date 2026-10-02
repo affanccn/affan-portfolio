@@ -11,7 +11,7 @@ Check out the live deployment: https://www.affanccn.com
 
 ## Getting Started
 ```bash
-git clone [https://github.com/emrhnccn/affan-portfolio.git](https://github.com/emrhnccn/affan-portfolio.git)
+git clone [https://github.com/affanccn/affan-portfolio.git](https://github.com/affanccn/affan-portfolio.git)
 cd affan-portfolio
 npm install
 npm run dev
