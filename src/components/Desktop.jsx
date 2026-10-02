@@ -434,7 +434,7 @@ export default function Desktop() {
       </nav>
 
       {/* Recruiter Command Center (Above-the-fold Hero) */}
-      <section className="command-center" aria-labelledby="portfolio-title">
+      <section className="command-center" aria-labelledby="portfolio-title" data-nosnippet>
         <div className="command-center__top">
           <span className="command-center__eyebrow">PORTFOLYO · 2026</span>
           <div className="command-center__status-badge" title="Available for Opportunities">
