@@ -35,6 +35,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
     "lucide-react": "^1.49.0",
+    "mammoth": "^1.13.0",
     "postcss": "^8.5.12",
     "tailwindcss": "^4.2.4",
     "vite": "^8.0.10"

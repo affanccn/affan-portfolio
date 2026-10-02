@@ -218,6 +218,37 @@ export default function BlogApp({ initialPostId = null }) {
             ))}
           </div>
 
+          {/* SEO Info (if exists) */}
+          {selectedPost.seo && (selectedPost.seo.focusKeyword || (selectedPost.seo.secondaryKeywords && selectedPost.seo.secondaryKeywords.length > 0)) && (
+            <div style={{
+              marginTop: '-16px',
+              marginBottom: '28px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '6px',
+              alignItems: 'center'
+            }}>
+              <span style={{ fontSize: '11px', color: '#64748b', marginRight: '4px', fontWeight: 600 }}>SEO:</span>
+              {selectedPost.seo.focusKeyword && (
+                <span style={{
+                  padding: '2px 6px', borderRadius: '4px', background: `${theme.primary}15`, 
+                  border: `1px solid ${theme.primary}40`, fontSize: '10px', color: theme.primary,
+                  display: 'flex', alignItems: 'center', gap: '3px'
+                }}>
+                  <Sparkles size={10} /> {selectedPost.seo.focusKeyword}
+                </span>
+              )}
+              {selectedPost.seo.secondaryKeywords && selectedPost.seo.secondaryKeywords.map(k => (
+                <span key={k} style={{
+                  padding: '2px 6px', borderRadius: '4px', background: 'rgba(255,255,255,0.02)', 
+                  border: '1px dashed rgba(255,255,255,0.1)', fontSize: '10px', color: '#94a3b8'
+                }}>
+                  {k}
+                </span>
+              ))}
+            </div>
+          )}
+
           {/* Divider */}
           <div style={{
             height: '1px',
