@@ -22,7 +22,7 @@ const BOOKMARKS = [
   { label: 'RealTimeChat', url: 'https://github.com/emrhnccn/RealTimeChat',  icon: '💬' },
   { label: 'Ersa Ticaret', url: 'https://github.com/emrhnccn/ersa-ticaret',  icon: '🛍️' },
   { label: 'Ersa Soğutma', url: 'https://github.com/emrhnccn/ersasogutma',   icon: '❄️' },
-  { label: 'AffanOS',      url: 'https://affan-portfolio-gilt.vercel.app/', icon: '💻' },
+  { label: 'AffanOS',      url: 'https://affanccn.com/', icon: '💻' },
   { label: 'GitHub',       url: 'https://github.com/affanccn',              icon: '🐙' },
   { label: 'LinkedIn',     url: 'https://linkedin.com/in/affanccn',          icon: '💼' },
 ];
@@ -106,7 +106,7 @@ function HomeDashboard({ theme, onNavigate }) {
     { label: 'RealTimeChat',      url: 'https://github.com/emrhnccn/RealTimeChat', icon: '💬' },
     { label: 'Ersa Ticaret',      url: 'https://github.com/emrhnccn/ersa-ticaret', icon: '🛍️' },
     { label: 'Ersa Soğutma',      url: 'https://github.com/emrhnccn/ersasogutma',  icon: '❄️' },
-    { label: 'AffanOS Portföy',   url: 'https://affan-portfolio-gilt.vercel.app/',icon: '💻' },
+    { label: 'AffanOS Portföy',   url: 'https://affanccn.com/',icon: '💻' },
     { label: 'GitHub Profili',    url: 'https://github.com/affanccn',             icon: '🐙' },
     { label: 'LinkedIn Profili',  url: 'https://linkedin.com/in/affanccn',         icon: '💼' },
   ];

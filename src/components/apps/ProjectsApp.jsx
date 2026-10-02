@@ -158,7 +158,7 @@ const PROJECTS = [
     image: '/images/og-preview.png',
     github: 'https://github.com/emrhnccn/affan-portfolio',
     repoStatus: 'Açık Kaynak (Public)',
-    liveDemo: 'https://affan-portfolio-gilt.vercel.app/',
+    liveDemo: 'https://affanccn.com/',
   },
 
   // ── SELECTED & SPECIALIZED PROJECTS ─────────────────────────────────────────

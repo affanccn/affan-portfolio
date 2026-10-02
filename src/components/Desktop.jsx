@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Window from './Window';
 import Taskbar from './Taskbar';
 import MobileShell from './MobileShell';
+import BlogWidget from './BlogWidget';
 import { useTheme } from '../contexts/ThemeContext';
 import { useSounds } from '../hooks/useSounds';
 import AboutApp from './apps/AboutApp';
@@ -11,6 +12,7 @@ import ContactApp from './apps/ContactApp';
 import TerminalApp from './apps/TerminalApp';
 import SettingsApp from './apps/SettingsApp';
 import BrowserApp from './apps/BrowserApp';
+import BlogApp from './apps/BlogApp';
 import { ExternalLink, FolderGit2, FileText, Mail } from 'lucide-react';
 
 const APP_COMPONENTS = {
@@ -21,6 +23,7 @@ const APP_COMPONENTS = {
   terminal: <TerminalApp />,
   browser: <BrowserApp />,
   settings: <SettingsApp />,
+  blog: <BlogApp />,
 };
 
 // ─── Wallpaper Layer ─────────────────────────────────────────────────────────
@@ -140,6 +143,7 @@ function ContextMenu({ x, y, onClose, onOpenApp, APP_LIST, theme }) {
     { label: '🚀 Projeler Mimarisi', action: () => onOpenApp(APP_LIST.find(a => a.id === 'projects')) },
     { label: '📄 Özgeçmiş (CV)', action: () => onOpenApp(APP_LIST.find(a => a.id === 'cv')) },
     { label: '👤 Geliştirici Profili & FIFA', action: () => onOpenApp(APP_LIST.find(a => a.id === 'about')) },
+    { label: '📰 Blog Yazıları', action: () => onOpenApp(APP_LIST.find(a => a.id === 'blog')) },
     { label: '⬛ Terminal Aç', action: () => onOpenApp(APP_LIST.find(a => a.id === 'terminal')) },
     { label: '🌐 Web Tarayıcı', action: () => onOpenApp(APP_LIST.find(a => a.id === 'browser')) },
     { divider: true },
@@ -209,6 +213,7 @@ export default function Desktop() {
     { id: 'terminal', title: 'Terminal',      icon: '⬛', subtitle: 'AffanOS Shell',                   size: { w: 680, h: 440 }, defaultPos: () => ({ x: 260, y: 110 }) },
     { id: 'browser',  title: 'Tarayıcı',      icon: '🌐', subtitle: 'AffanOS Browser & demolar',        size: { w: 880, h: 600 }, defaultPos: () => ({ x: 160, y: 60 }) },
     { id: 'settings', title: 'Ayarlar',       icon: '⚙️', subtitle: 'Tema ve kişiselleştirme',        size: { w: 580, h: 600 }, defaultPos: () => ({ x: 320, y: 70 }) },
+    { id: 'blog',     title: 'Blog/',         icon: '📰', subtitle: 'Yazılar & Makaleler',             size: { w: 720, h: 560 }, defaultPos: () => ({ x: 200, y: 55 }) },
   ];
 
   // Mobile detection & responsive viewport observer
@@ -332,6 +337,44 @@ export default function Desktop() {
     setContextMenu({ x: e.clientX, y: e.clientY });
   };
 
+  // Blog widget → pencere açma handler'ı
+  const openBlogFromWidget = useCallback((postId) => {
+    const blogConfig = APP_LIST.find(a => a.id === 'blog');
+    if (!blogConfig) return;
+    play('click');
+    setWindows(prev => {
+      const exists = prev.find(w => w.appId === 'blog');
+      if (exists) {
+        const newZ = topZ + 1;
+        setTopZ(newZ);
+        return prev.map(w =>
+          w.appId === 'blog'
+            ? { ...w, isMinimized: false, zIndex: newZ, component: <BlogApp initialPostId={postId} /> }
+            : w
+        );
+      }
+      const newZ = topZ + 1;
+      setTopZ(newZ);
+      const pos = blogConfig.defaultPos();
+      const offset = (prev.length % 6) * 26;
+      const safeX = Math.max(20, Math.min(pos.x + offset, window.innerWidth - (blogConfig.size.w || 600) - 20));
+      const safeY = Math.max(20, Math.min(pos.y + offset, window.innerHeight - (blogConfig.size.h || 480) - 70));
+      play('windowOpen');
+      return [...prev, {
+        id: Date.now(),
+        appId: blogConfig.id,
+        title: blogConfig.title,
+        icon: blogConfig.icon,
+        isMinimized: false,
+        isMaximized: false,
+        position: { x: safeX, y: safeY },
+        size: blogConfig.size,
+        zIndex: newZ,
+        component: <BlogApp initialPostId={postId} />,
+      }];
+    });
+  }, [topZ, play]);
+
   // If mobile, render dedicated Mobile-First Shell
   if (isMobile) {
     const mobileApps = APP_LIST.map(app => ({
@@ -369,13 +412,16 @@ export default function Desktop() {
 
       {/* Desktop Watermark */}
       <div style={{
-        position: 'absolute', bottom: '60px', right: '20px',
+        position: 'absolute', bottom: '60px', right: '316px',
         color: 'rgba(255,255,255,0.06)', fontSize: '11px',
         fontFamily: 'var(--font-mono)', letterSpacing: '0.12em',
         userSelect: 'none', pointerEvents: 'none',
       }}>
         AffanOS v1.0 · Computer Engineer & Full-Stack Developer
       </div>
+
+      {/* Blog Widget */}
+      <BlogWidget onOpenBlog={openBlogFromWidget} />
 
       {/* Desktop Icons Dock */}
       <nav className="desktop-icon-dock" aria-label="Masaüstü uygulamaları" style={{

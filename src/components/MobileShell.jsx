@@ -150,7 +150,8 @@ export default function MobileShell({ apps, onOpenApp, onMuteToggle, muted }) {
                  app.id === 'cv' ? '📄 Özgeçmiş (CV)' :
                  app.id === 'contact' ? '✉️ İletişim Hub' :
                  app.id === 'terminal' ? '⬛ Terminal Shell' :
-                 app.id === 'browser' ? '🌐 Web Tarayıcı' : app.title}
+                 app.id === 'browser' ? '🌐 Web Tarayıcı' :
+                 app.id === 'blog' ? '📰 Blog Yazıları' : app.title}
               </div>
               <div className="mobile-app-card__desc">
                 {app.subtitle}
