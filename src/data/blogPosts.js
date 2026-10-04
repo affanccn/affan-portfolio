@@ -1,7 +1,7 @@
 // ─── Blog Posts Data Source ──────────────────────────────────────────────────
 // Bu dosya otomatik üretilmiştir → npm run blog
 // Kaynak: content/blog/ klasöründeki dosyalar
-// Son güncelleme: 02.10.2026 10:24:03
+// Son güncelleme: 04.10.2026 15:14:29
 
 export const BLOG_CATEGORIES = [
   { id: 'all', label: 'Tümü', icon: '📋' },
@@ -15,12 +15,384 @@ export const BLOG_CATEGORIES = [
 export const BLOG_POSTS = [
   {
     id: 1,
+    slug: 'react-19-useactionstate-useoptimistic-server-actions',
+    title: 'React 19 ile useActionState, useOptimistic ve Server Actions Entegrasyonu',
+    excerpt: 'React 19 sürümündeki useActionState ve useOptimistic hook\'ları ile form yönetimi, iyimser UI güncellemeleri ve Server Actions entegrasyonu rehberi.',
+    category: 'web',
+    tags: ['React', 'React 19', 'Next.js', 'Frontend', 'JavaScript', 'Web Development'],
+    date: '2026-10-04',
+    readTime: '5 Dakika',
+    featured: false,
+    seo: {
+      focusKeyword: 'React 19 useActionState',
+      secondaryKeywords: ['useOptimistic hook', 'React 19 form yönetimi', 'Server Actions React 19', 'Optimistic UI React']
+    },
+    content: `React 19 ile birlikte asenkron form işlemleri, sunucu eylemleri ve durum yönetimi köklü bir dönüşüm geçirdi. Önceden \`useState\`, \`useEffect\` ve manuel try-catch bloklarıyla yönetilen karmaşık form yüklenme (pending) ve hata durumları, artık yerel hook'lar olan \`useActionState\` ve \`useOptimistic\` ile çok daha sade ve deklaratif bir biçimde çözülüyor.
+
+## 1\\. Geleneksel Form Yönetiminin Sorunları
+
+Klasik React formlarında istek başladığında bir \`isPending\` state'i tutmak, sunucu yanıtı geciktiğinde arayüzü dondurmamak ve olası hatalarda kullanıcıya geri bildirim sunmak fazladan boilerplate kod gerektiriyordu. React 19'daki eylem (Action) paradigması, asenkron geçişleri (transitions) otomatik olarak sarar.
+
+## 2\\. \`useActionState\` ile Zahmetsiz Form Durumu
+
+\`useActionState\`, bir form eyleminin (Action) sonucunu, form verilerini ve o andaki yüklenme durumunu tek bir yerde toplar:
+
+// components/AddCommentForm.tsx
+
+"use client";
+
+import { useActionState } from "react";
+
+import { addCommentAction } from "@/app/actions/comments";
+
+export function AddCommentForm({ postId }: { postId: string }) {
+
+  const \\[state, formAction, isPending\\] \\= useActionState(
+
+    addCommentAction,
+
+    { success: false, error: null }
+
+  );
+
+  return (
+
+    \\<form action={formAction} className="space-y-4"\\>
+
+      \\<input type="hidden" name="postId" value={postId} /\\>
+
+      \\<textarea
+
+        name="comment"
+
+        placeholder="Yorumunuzu yazın..."
+
+        required
+
+        disabled={isPending}
+
+        className="w-full p-3 border rounded-lg"
+
+      /\\>
+
+      
+
+      {state.error && (
+
+        \\<p className="text-red-500 text-sm"\\>{state.error}\\</p\\>
+
+      )}
+
+      \\<button
+
+        type="submit"
+
+        disabled={isPending}
+
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+
+      \\>
+
+        {isPending ? "Gönderiliyor..." : "Yorum Yap"}
+
+      \\</button\\>
+
+    \\</form\\>
+
+  );
+
+}
+
+## 3\\. \`useOptimistic\` ile Sıfır Gecikmeli Arayüzler (Optimistic UI)
+
+Kullanıcı bir beğeni butonuna bastığında veya yeni bir mesaj gönderdiğinde sunucu yanıtını beklemek arayüzü hantal hissettirir. \`useOptimistic\`, sunucudan yanıt gelmeden arayüzü anında günceller; hata durumunda ise eski duruma otomatik döner.
+
+// components/LikeButton.tsx
+
+"use client";
+
+import { useOptimistic, startTransition } from "react";
+
+import { toggleLikeAction } from "@/app/actions/likes";
+
+interface LikeButtonProps {
+
+  initialLikes: number;
+
+  postId: string;
+
+}
+
+export function LikeButton({ initialLikes, postId }: LikeButtonProps) {
+
+  const \\[optimisticLikes, setOptimisticLikes\\] \\= useOptimistic(
+
+    initialLikes,
+
+    (current, update: number) \\=\\> current \\+ update
+
+  );
+
+  const handleLike \\= async () \\=\\> {
+
+    startTransition(async () \\=\\> {
+
+      // Arayüzü anında 1 artır
+
+      setOptimisticLikes(1);
+
+      // Sunucuya isteği gönder
+
+      await toggleLikeAction(postId);
+
+    });
+
+  };
+
+  return (
+
+    \\<button
+
+      onClick={handleLike}
+
+      className="flex items-center gap-2 px-3 py-1.5 border rounded-md"
+
+    \\>
+
+      \\<span\\>❤️\\</span\\>
+
+      \\<span\\>{optimisticLikes}\\</span\\>
+
+    \\</button\\>
+
+  );
+
+}
+
+## 4\\. Mimari Kazanımlar ve SEO Etkisi
+
+1. **İlerici Geliştirme (Progressive Enhancement):** JavaScript henüz yüklenmemişken bile yerel \`<form action={...}>\` yapısı çalışmaya devam eder.  
+2. **Core Web Vitals (INP İyileştirmesi):** İyimser güncellemeler sayesinde Interaction to Next Paint (INP) gecikmesi neredeyse sıfıra iner ve arama motorlarının arayüz akıcılık kriterlerini karşılar.`,
+  },
+  {
+    id: 2,
+    slug: 'redis-dagitik-rate-limiting-sliding-window-token-bucket',
+    title: 'Redis ile Dağıtık Hız Sınırlama (Rate Limiting): Sliding Window Log ve Token Bucket Mimarisi',
+    excerpt: 'Node.js ve Redis kullanarak API uç noktalarını DDoS ve aşırı yükten koruyan Sliding Window ve Token Bucket dağıtık hız sınırlama algoritmaları.',
+    category: 'web',
+    tags: ['Redis', 'Node.js', 'System Architecture', 'Backend', 'Security', 'API Design'],
+    date: '2026-10-04',
+    readTime: '5 Dakika',
+    featured: false,
+    seo: {
+      focusKeyword: 'Redis rate limiting',
+      secondaryKeywords: ['Sliding Window Counter', 'Token Bucket algoritması', 'dağıtık hız sınırlama', 'API güvenliği', 'Node.js Redis']
+    },
+    content: `Mikroservis ve sunucusuz (serverless) mimarilerde API uç noktalarını kötü niyetli botlardan, kaba kuvvet (brute-force) saldırılarından ve ani trafik patlamalarından korumak için hız sınırlama (rate limiting) uygulanması şarttır. Tekil bir sunucu belleğinde (in-memory) tutulan sayaçlar çoklu pod veya sunucu senaryolarında çalışmaz; bu nedenle **Redis** gibi merkezi, ultra hızlı ve atomik operasyonları destekleyen bir veri yapısı kullanılır.
+
+## 1\\. Hız Sınırlama Algoritmaları Karşılaştırması
+
+* **Fixed Window (Sabit Pencere):** En basit yöntemdir (örneğin dakikada 100 istek). Ancak iki pencere sınırında (dakikanın 59\\. saniyesi ve sonraki dakikanın 1\\. saniyesi) 200 istek geçmesine izin vererek ani yük patlamalarına yol açabilir.  
+* **Sliding Window Log (Kayan Pencere Günlüğü):** İsteklerin zaman damgalarını (timestamp) Redis Sorted Set (ZSET) içinde tutarak tam zaman aralığını kesin olarak hesaplar.  
+* **Token Bucket (Jeton Kovası):** Düzenli aralıklarla sepete jeton doldurulur. İstekler jeton harcar. Ani patlamalara belirli bir limite kadar esneklik tanır.
+
+## 2\\. Sliding Window Counter ile Redis & Node.js Uygulaması
+
+Sliding Window Log yöntemi, Redis'in \`ZADD\`, \`ZREMRANGEBYSCORE\` ve \`ZCARD\` komutlarını atomik bir işlem (Pipeline veya Lua Script) içinde çalıştırarak yarış durumlarını engeller:
+
+// middleware/rateLimiter.ts
+
+import { Redis } from "ioredis";
+
+const redis \\= new Redis(process.env.REDIS\\_URL || "redis://localhost:6379");
+
+interface RateLimitConfig {
+
+  windowInSeconds: number;
+
+  maxRequests: number;
+
+}
+
+export async function isRateLimited(
+
+  identifier: string, // Kullanıcı ID veya IP adresi
+
+  config: RateLimitConfig
+
+): Promise\\<{ allowed: boolean; remaining: number }\\> {
+
+  const now \\= Date.now();
+
+  const clearBefore \\= now \\- config.windowInSeconds \\* 1000;
+
+  const key \\= \\\`ratelimit:\\\${identifier}\\\`;
+
+  // Atomik Lua Script veya Pipeline
+
+  const multi \\= redis.multi();
+
+  // 1\\. Pencere dışındaki eski istekleri temizle
+
+  multi.zremrangebyscore(key, 0, clearBefore);
+
+  // 2\\. Yeni isteğin zaman damgasını ekle
+
+  multi.zadd(key, now, \\\`\\\${now}-\\\${Math.random()}\\\`);
+
+  // 3\\. Pencere içindeki toplam istek sayısını al
+
+  multi.zcard(key);
+
+  // 4\\. Anahtarın yaşam süresini (TTL) yenile
+
+  multi.expire(key, config.windowInSeconds);
+
+  const results \\= await multi.exec();
+
+  const requestCount \\= results ? (results\\[2\\]\\[1\\] as number) : 0;
+
+  if (requestCount \\> config.maxRequests) {
+
+    return { allowed: false, remaining: 0 };
+
+  }
+
+  return {
+
+    allowed: true,
+
+    remaining: config.maxRequests \\- requestCount,
+
+  };
+
+}
+
+## 3\\. Dağıtık Sistemlerde Dikkat Edilmesi Gerekenler
+
+1. **HTTP Başlıkları (Headers):** Standart IETF başlıklarını (\`RateLimit-Limit\`, \`RateLimit-Remaining\`, \`RateLimit-Reset\` ve \`Retry-After\`) döndürerek API tüketicilerine net geri bildirim sağlayın.  
+2. **Bellek Optimizasyonu:** ZSET yaklaşımı her istek için bellek tüketir. Milyonlarca istek alan devasa sistemlerde Redis Sorted Set yerine *Sliding Window Counter* (önceki pencere ve mevcut pencere ortalaması alan matematiksel yaklaşım) tercih edilmelidir.  
+3. **Fail-Open vs. Fail-Closed:** Redis bağlantısı geçici olarak koptuğunda sistemin tüm istekleri engellemesi mi (fail-closed) yoksa API'yi açık tutması mı (fail-open) gerektiğine uygulamanın kritiklik derecesine göre karar verilmelidir.`,
+  },
+  {
+    id: 3,
+    slug: 'flutter-offline-first-drift-sqlite-supabase-senkronizasyon',
+    title: 'Flutter\'da Offline-First Mimari: Drift (SQLite) ve Supabase ile İki Yönlü Veri Senkronizasyonu',
+    excerpt: 'Flutter projelerinde Drift (SQLite) ve Supabase kullanarak internet bağlantısı olmadan çalışan ve otomatik senkronize olan Offline-First mimari rehberi.',
+    category: 'web',
+    tags: ['Flutter', 'Drift', 'SQLite', 'Supabase', 'Mobile Development', 'Dart'],
+    date: '2026-10-04',
+    readTime: '5 Dakika',
+    featured: false,
+    seo: {
+      focusKeyword: 'Flutter Offline-First mimari',
+      secondaryKeywords: ['Drift SQLite Flutter', 'Supabase Flutter senkronizasyon', 'çevrimdışı veri yönetimi', 'conflict resolution mobil']
+    },
+    content: `Mobil uygulamalarda kullanıcıların metroda, uçakta veya zayıf sinyalli bölgelerde işlem yapmaya devam edebilmesi kritik bir rekabet avantajıdır. **Offline-First (Önce Çevrimdışı)** mimarisinde yerel veritabanı (Single Source of Truth) kabul edilir; arayüz doğrudan yerel veriyi dinler ve ağ bağlantısı sağlandığında arka planda iki yönlü senkronizasyon yürütülür.
+
+## 1\\. Mimari Katman Düzeni
+
+* **Arayüz Katmanı:** Yalnızca yerel SQLite (Drift) tablosunu reaktif stream (\`watch()\`) olarak dinler. Ağ durumundan bağımsız anında yanıt verir.  
+* **Yerel Veritabanı (Drift):** Tüm verileri yerel diske yazar ve her kayıtta bir \`sync_status\` (\`synced\`, \`pending_insert\`, \`pending_update\`, \`pending_delete\`) bayrağı tutar.  
+* **Senkronizasyon Yöneticisi (Sync Engine):** İnternet bağlantısını (Connectivity) izler, bekleyen yerel değişiklikleri Supabase'e gönderir ve sunucudaki güncel değişiklikleri yerel veritabanına yazar.
+
+## 2\\. Drift ile Tablo Tanımı ve Senkronizasyon Bayrakları
+
+// database/tables.dart
+
+import 'package:drift/drift.dart';
+
+enum SyncStatus { synced, pendingInsert, pendingUpdate, pendingDelete }
+
+class Tasks extends Table {
+
+  TextColumn get id \\=\\> text()(); // UUID
+
+  TextColumn get title \\=\\> text().withLength(min: 1, max: 100)();
+
+  BoolColumn get isCompleted \\=\\> boolean().withDefault(const Constant(false))();
+
+  DateTimeColumn get updatedAt \\=\\> dateTime()();
+
+  IntColumn get syncStatus \\=\\> intEnum\\<SyncStatus\\>()();
+
+  @override
+
+  Set\\<Column\\> get primaryKey \\=\\> {id};
+
+}
+
+## 3\\. Senkronizasyon Motoru Mantığı
+
+// services/sync\\_engine.dart
+
+class SyncEngine {
+
+  final AppDatabase db;
+
+  final SupabaseClient supabase;
+
+  SyncEngine(this.db, this.supabase);
+
+  Future\\<void\\> syncPendingTasks() async {
+
+    // 1\\. Yerelde sunucuya iletilmemiş kayıtları çek
+
+    final pendingTasks \\= await db.getPendingTasks();
+
+    for (final task in pendingTasks) {
+
+      try {
+
+        if (task.syncStatus \\== SyncStatus.pendingInsert) {
+
+          await supabase.from('tasks').upsert({
+
+            'id': task.id,
+
+            'title': task.title,
+
+            'is\\_completed': task.isCompleted,
+
+            'updated\\_at': task.updatedAt.toIso8601String(),
+
+          });
+
+          
+
+          // Yerel durumu 'synced' olarak güncelle
+
+          await db.markAsSynced(task.id);
+
+        }
+
+      } catch (e) {
+
+        // Hata durumunda bir sonraki bağlantı denemesine bırak
+
+        print('Senkronizasyon hatası: \\\$e');
+
+      }
+
+    }
+
+  }
+
+}
+
+## 4\\. Çatışma Çözümü (Conflict Resolution) Stratejileri
+
+1. **Last-Write-Wins (Son Yazan Kazanır):** Hem yerelde hem sunucuda \`updated_at\` zaman damgası karşılaştırılır; en güncel zaman damgasına sahip kayıt geçerli sayılır.  
+2. **Kuyruk Tabanlı Güncelleme:** Silinen kayıtlar yerelden hemen silinmek yerine "soft-delete" mantığıyla \`pending_delete\` işaretlenmeli, sunucu onayı geldikten sonra diskten temizlenmelidir.`,
+  },
+  {
+    id: 4,
     slug: 'nodejs-socketio-redis-adapter-olcekleme',
     title: 'Node.js ve Socket.io ile Gerçek Zamanlı Sistemleri Ölçekleme',
     excerpt: 'Çoklu Node.js sunucuları arasında Socket.io ile gerçek zamanlı veri akışını Redis Adapter kullanarak yatayda ölçekleme rehberi ve bağlantı yönetimi.',
     category: 'web',
     tags: ['Node.js', 'Socket.io', 'Redis', 'WebSocket', 'Backend', 'System Architecture'],
-    date: '2026-10-02',
+    date: '2026-10-04',
     readTime: '5 Dakika',
     featured: false,
     seo: {
@@ -90,13 +462,13 @@ httpServer.listen(3000);
 2. **Bağlantı ve Kalp Atışı (Heartbeat):** Kararsız mobil ağlarda soketlerin sunucuda askıda kalmaması için \`pingInterval\` ve \`pingTimeout\` değerleri optimize edilmelidir.`,
   },
   {
-    id: 2,
+    id: 5,
     slug: 'flutter-riverpod-clean-architecture-rehberi',
     title: 'Flutter\'da Riverpod ile Clean Architecture Kurulumu',
     excerpt: 'Flutter projelerinde Riverpod 2.x kullanarak Clean Architecture katmanlarını (Domain, Data, Presentation) organize etme ve test edilebilir mimari kurma.',
     category: 'web',
     tags: ['Flutter', 'Dart', 'Riverpod', 'Clean Architecture', 'Mobile Development'],
-    date: '2026-10-02',
+    date: '2026-10-04',
     readTime: '5 Dakika',
     featured: false,
     seo: {
@@ -166,13 +538,13 @@ final activeOrdersProvider \\= FutureProvider.autoDispose\\<List\\<Order\\>\\>((
 2. **Otomatik Kaynak Temizliği:** \`autoDispose\` sayesinde kullanılmayan ekranların verileri bellekten anında düşürülür.`,
   },
   {
-    id: 3,
+    id: 6,
     slug: 'postgresql-prisma-indeksleme-sorgu-optimizasyonu',
     title: 'PostgreSQL ve Prisma ile Veritabanı İndeksleme ve Sorgu Optimizasyonu',
     excerpt: 'PostgreSQL ve Prisma ORM ile çalışan projelerde B-Tree/GIN indeksleme, EXPLAIN ANALYZE analizi ve N+1 sorgu optimizasyonu teknikleri.',
     category: 'web',
     tags: ['PostgreSQL', 'Prisma', 'Database', 'Backend', 'Node.js', 'Performance', 'SQL'],
-    date: '2026-10-02',
+    date: '2026-10-04',
     readTime: '5 Dakika',
     featured: false,
     seo: {
@@ -241,13 +613,13 @@ const usersWithPosts \\= await prisma.user.findMany({
 Serverless ortamlarda (Vercel, AWS Lambda) her fonksiyon çağrısı yeni bir veritabanı bağlantısı açabilir. Supabase Connection Pooler veya PgBouncer kullanarak işlem (transaction) modunda bağlantı havuzu oluşturmak, "too many clients" hatasını önler.`,
   },
   {
-    id: 4,
+    id: 7,
     slug: 'react-native-flashlist-new-architecture-performans',
     title: 'React Native\'de FlashList ve New Architecture ile 60/120 FPS Performans',
     excerpt: 'React Native ve Expo projelerinde FlatList yerine FlashList kullanarak bellek tüketimini düşürme, Fabric mimarisi ve akıcı listeleme teknikleri.',
     category: 'web',
     tags: ['React Native', 'Expo', 'FlashList', 'Mobile Development', 'Performance', 'TypeScript'],
-    date: '2026-10-02',
+    date: '2026-10-04',
     readTime: '5 Dakika',
     featured: false,
     seo: {
@@ -319,13 +691,13 @@ Yeni mimaride JavaScript köprüsü (bridge) kaldırılarak C++ tabanlı doğrud
 * **Görsel Önbellekleme:** Standart Image yerine \`expo-image\` veya \`FastImage\` kullanarak disk/bellek önbelleğini etkinleştirin.`,
   },
   {
-    id: 5,
+    id: 8,
     slug: 'typescript-zod-uctan-uca-tip-guvenligi',
     title: 'TypeScript 5.x ve Zod ile Uçtan Uca Tip Güvenliği ve Doğrulama',
     excerpt: 'TypeScript 5.x ve Zod kütüphanesini birleştirerek API doğrulamalarında çalışma zamanı ve derleme zamanı tip güvenliği sağlama rehberi.',
     category: 'web',
     tags: ['TypeScript', 'Zod', 'JavaScript', 'Node.js', 'Web Development', 'API Security'],
-    date: '2026-10-02',
+    date: '2026-10-04',
     readTime: '4 Dakika',
     featured: false,
     seo: {
@@ -402,7 +774,345 @@ export async function POST(req: Request) {
 Farklı API yanıtlarını ortak bir \`status\` veya \`type\` alanı üzerinden ayırt ederek, TypeScript derleyicisinin ilgili blok içinde veriyi otomatik daraltmasını (type narrowing) sağlayabilirsiniz.`,
   },
   {
-    id: 6,
+    id: 9,
+    slug: 'nextjs-parallel-intercepting-routes-modal-mimarisi',
+    title: 'Next.js App Router\'da Parallel & Intercepting Routes ile Modal ve Pano Mimarisi',
+    excerpt: 'Next.js App Router\'da (@modal ve (.)photo gibi) parallel ve intercepting route\'lar kullanarak URL paylaşılabilir modal ve gelişmiş dashboard mimarisi kurulumu.',
+    category: 'web',
+    tags: ['Next.js', 'React', 'App Router', 'Web Development', 'Frontend', 'UI/UX'],
+    date: '2026-10-03',
+    readTime: '5 Dakika',
+    featured: false,
+    seo: {
+      focusKeyword: 'Next.js parallel intercepting routes',
+      secondaryKeywords: ['Next.js modal routing', 'App Router slot mimarisi', 'URL paylaşılabilir modal', 'Next.js dashboard yapısı']
+    },
+    content: `Geleneksel React uygulamalarında modallar genellikle \`isOpen\` state'i ile kontrol edilir. Ancak bu yaklaşım iki büyük soruna yol açar: Kullanıcı modal açıkken sayfayı yenilediğinde veya bağlantıyı paylaştığında modal kaybolur ve tarayıcının "Geri" tuşu beklendiği gibi çalışmaz. Next.js App Router ile gelen **Parallel Routes** (\`@slot\`) ve **Intercepting Routes** (\`(.)\`), modalları bağımsız birer rota haline getirerek mükemmel bir kullanıcı deneyimi ve SEO uyumluluğu sağlar.
+
+## 1\\. Mimari Kavramlar: Parallel ve Intercepting Routes
+
+* **Parallel Routes (\`@slot\`):** Aynı layout içinde aynı anda birden fazla bağımsız sayfayı eşzamanlı render etmenizi sağlar.  
+* **Intercepting Routes (\`(.)\`, \`(..)\`, \`(...)\`):** Mevcut sayfa bağlamını korurken hedef rotanın içeriğini araya girerek (intercept ederek) yakalar. Örneğin, bir galeri sayfasındayken görsele tıklandığında modal olarak açılır, ancak doğrudan o linke gidildiğinde bağımsız tam sayfa olarak yüklenir.
+
+## 2\\. Klasör Yapısı ve Dosya Düzeni
+
+app/
+
+├── @modal/
+
+│   ├── (.)photos/
+
+│   │   └── \\[id\\]/
+
+│   │       └── page.tsx      \\# Modal görünümü
+
+│   └── default.tsx           \\# Slot aktif değilken boş render
+
+├── photos/
+
+│   └── \\[id\\]/
+
+│       └── page.tsx          \\# Doğrudan erişimde açılan tam sayfa
+
+├── layout.tsx                \\# Slot'u kabul eden ana düzen
+
+└── page.tsx                  \\# Ana akış / Galeri listesi
+
+## 3\\. Uygulama Kodu
+
+### \`app/layout.tsx\`
+
+import React from "react";
+
+export default function RootLayout({
+
+  children,
+
+  modal,
+
+}: {
+
+  children: React.ReactNode;
+
+  modal: React.ReactNode;
+
+}) {
+
+  return (
+
+    \\<html lang="tr"\\>
+
+      \\<body\\>
+
+        \\<main\\>{children}\\</main\\>
+
+        {/\\* Modal slot'u burada bağımsız render edilir \\*/}
+
+        {modal}
+
+      \\</body\\>
+
+    \\</html\\>
+
+  );
+
+}
+
+### \`app/@modal/default.tsx\`
+
+// Modal açık değilken slot'un boş dönmesi için zorunludur
+
+export default function Default() {
+
+  return null;
+
+}
+
+### \`app/@modal/(.)photos/[id]/page.tsx\`
+
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function PhotoModal({ params }: { params: { id: string } }) {
+
+  const router \\= useRouter();
+
+  return (
+
+    \\<div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"\\>
+
+      \\<div className="bg-white rounded-xl p-6 max-w-lg w-full relative"\\>
+
+        \\<button
+
+          onClick={() \\=\\> router.back()}
+
+          className="absolute top-4 right-4 text-gray-500 hover:text-black"
+
+        \\>
+
+          ✕
+
+        \\</button\\>
+
+        \\<h2 className="text-xl font-bold mb-4"\\>Fotoğraf Detayı \\#{params.id}\\</h2\\>
+
+        \\<p className="text-gray-600"\\>
+
+          Bu modal URL ile eşleşir. Sayfayı yenilediğinizde bağımsız rota devreye girer.
+
+        \\</p\\>
+
+      \\</div\\>
+
+    \\</div\\>
+
+  );
+
+}
+
+## 4\\. SEO ve UX Açısından Kritik Avantajlar
+
+1. **Paylaşılabilir URL:** Kullanıcı modal içindeki içeriğin linkini kopyalayıp paylaştığında, alıcı doğrudan tam sayfa deneyimiyle karşılaşır.  
+2. **Kusursuz Geri/İleri Navigasyonu:** Tarayıcının geri tuşu modalı kapatır, kullanıcı sayfadan istemeden ayrılmaz.  
+3. **Arama Motoru İndekslemesi:** Tüm modal içerikleri aslında bağımsız birer URL (\`/photos/[id]\`) olduğu için Google botları tarafından kolayca taranabilir.`,
+  },
+  {
+    id: 10,
+    slug: 'supabase-rls-postgresql-fonksiyonlari-guvenlik',
+    title: 'Supabase Row Level Security (RLS) ve PostgreSQL Fonksiyonları ile Güvenli API Mimarisi',
+    excerpt: 'Supabase projelerinde Row Level Security (RLS) politikaları, auth.uid() kontrolü ve saklı yordamlar (RPC) ile backend güvenliğini sağlama rehberi.',
+    category: 'web',
+    tags: ['Supabase', 'PostgreSQL', 'Security', 'Backend', 'Database', 'SQL'],
+    date: '2026-10-03',
+    readTime: '5 Dakika',
+    featured: false,
+    seo: {
+      focusKeyword: 'Supabase Row Level Security',
+      secondaryKeywords: ['Supabase RLS politikaları', 'PostgreSQL security definer', 'auth.uid()', 'veritabanı güvenliği', 'BaaS mimarisi']
+    },
+    content: `Backend-as-a-Service (BaaS) mimarilerinde istemcilerin doğrudan veritabanı istemcisiyle (Supabase JS Client) sorgu atabilmesi büyük hız kazandırır. Ancak bu modelde geleneksel middleware kontrolleri bulunmadığı için veritabanı katmanında **Row Level Security (RLS)** politikalarının kusursuz tanımlanması bir zorunluluktur.
+
+## 1\\. Row Level Security (RLS) Temelleri
+
+RLS etkinleştirildiğinde, veritabanı tablosundaki tüm satırlar varsayılan olarak okuma ve yazmaya kapatılır. Yalnızca açıkça izin verilen SQL politikaları (Policies) üzerinden veri akışına izin verilir.
+
+\\-- Tabloda RLS'i zorunlu kılın
+
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+\\-- Kullanıcıların yalnızca kendi profillerini görmesini sağlayın
+
+CREATE POLICY "Kullanıcılar kendi profillerini okuyabilir"
+
+ON profiles
+
+FOR SELECT
+
+USING (auth.uid() \\= id);
+
+\\-- Kullanıcıların yalnızca kendi profillerini güncellemesine izin verin
+
+CREATE POLICY "Kullanıcılar kendi profillerini güncelleyebilir"
+
+ON profiles
+
+FOR UPDATE
+
+USING (auth.uid() \\= id)
+
+WITH CHECK (auth.uid() \\= id);
+
+## 2\\. Karmaşık İş Mantığı İçin Saklı Yordamlar (PostgreSQL Functions / RPC)
+
+Basit CRUD işlemleri RLS politikalarıyla korunabilirken, bakiye transferi, sayaç artırma veya çoklu tablo güncellemeleri için saklı yordamlar yazılmalıdır.
+
+\\-- Atomik kredi harcama fonksiyonu
+
+CREATE OR REPLACE FUNCTION deduct\\_credits(amount INT)
+
+RETURNS INT
+
+LANGUAGE plpgsql
+
+SECURITY DEFINER \\-- Fonksiyon oluşturanın yetkisiyle çalışır
+
+SET search\\_path \\= public \\-- Güvenlik açığı önleme
+
+AS \\\$\\\$
+
+DECLARE
+
+  current\\_balance INT;
+
+BEGIN
+
+  SELECT credits INTO current\\_balance
+
+  FROM profiles
+
+  WHERE id \\= auth.uid()
+
+  FOR UPDATE; \\-- Eşzamanlı yarış durumlarını (Race Condition) önler
+
+  IF current\\_balance \\< amount THEN
+
+    RAISE EXCEPTION 'Yetersiz bakiye\\!';
+
+  END IF;
+
+  UPDATE profiles
+
+  SET credits \\= credits \\- amount
+
+  WHERE id \\= auth.uid();
+
+  RETURN current\\_balance \\- amount;
+
+END;
+
+\\\$\\\$;
+
+## 3\\. Güvenlik ve Performans İpuçları
+
+* **\`SECURITY DEFINER\` Tuzakları:** Fonksiyon içinde mutlaka \`SET search_path = public\` ekleyin; aksi takdirde kötü niyetli kullanıcılar arama yolu manipülasyonu yapabilir.  
+* **RLS Sorgularında İndeksleme:** \`USING (auth.uid() = user_id)\` gibi sık filtrelenen foreign key kolonlarına indeks atayın. İndeks bulunmazsa PostgreSQL her satır için Sequential Scan yapar ve sorgu performansı çöker.  
+* **İstemci Tarafında Service Role Key Kullanmayın:** \`service_role\` anahtarı RLS kontrollerini tamamen atlar. Bu anahtar kesinlikle istemciye (tarayıcıya/mobile) sızdırılmamalı, yalnızca güvenli sunucu ortamlarında (Next.js Server Actions) tutulmalıdır.`,
+  },
+  {
+    id: 11,
+    slug: 'flutter-isolate-background-worker-performans',
+    title: 'Flutter\'da Isolate ve Background Worker ile CPU-Yoğun İşlemleri Optimize Etme',
+    excerpt: 'Flutter uygulamalarında UI thread\'ini dondurmadan büyük JSON verilerini işleme, görsel filtreleme ve CPU-yoğun görevleri Isolate.run() ile yönetme rehberi.',
+    category: 'web',
+    tags: ['Flutter', 'Dart', 'Performance', 'Mobile Development', 'Concurrency'],
+    date: '2026-10-03',
+    readTime: '4 Dakika',
+    featured: false,
+    seo: {
+      focusKeyword: 'Flutter Isolate performansı',
+      secondaryKeywords: ['Flutter Isolate.run', 'Dart multithreading', 'Flutter jank önleme', 'arka plan veri işleme', '120 FPS mobil']
+    },
+    content: `Flutter'da Dart kodu varsayılan olarak tek bir ana iş parçacığında (UI Thread / Event Loop) çalışır. Ağ çağrısı gibi asenkron I/O işlemleri arayüzü kilitlemezken; megabaytlarca JSON ayrıştırma, karmaşık matematiksel hesaplamalar veya görsel işleme gibi CPU-yoğun görevler event loop'u bloke eder. Bu durum kullanıcının arayüzde doğrudan hissettiği takılmalara (frame drop / jank) neden olur. Çözüm, bu görevleri bağımsız bir **Isolate** üzerinde çalıştırmaktır.
+
+## 1\\. Event Loop ve Isolate Kavramı
+
+Dart'ta iş parçacıkları bellek paylaşmaz; her Isolate kendi izole edilmiş bellek alanına ve bağımsız event loop döngüsüne sahiptir. İki Isolate birbiriyle yalnızca mesajlaşma (Port) yoluyla haberleşir. Bu sayede yarış durumları (Race Condition) ve bellek kilitleri (Deadlock) engellenir.
+
+## 2\\. Modern Çözüm: \`Isolate.run()\`
+
+Dart 2.19 ve üzeri sürümlerde, karmaşık port dinleyicileri kurmadan tek seferlik ağır işlemleri çalıştırmak için \`Isolate.run()\` kullanılır:
+
+import 'dart:convert';
+
+import 'dart:isolate';
+
+// Ağır JSON ayrıştırma fonksiyonu (Top-level veya static olmalı)
+
+List\\<Product\\> parseLargeJson(String jsonString) {
+
+  final List\\<dynamic\\> decoded \\= jsonDecode(jsonString);
+
+  return decoded.map((item) \\=\\> Product.fromJson(item)).toList();
+
+}
+
+class ProductRepository {
+
+  Future\\<List\\<Product\\>\\> fetchAndParseProducts() async {
+
+    final response \\= await http.get(Uri.parse('https\\://api.example.com/large-catalog'));
+
+    
+
+    // UI thread'i dondurmadan arka planda ayrıştırma
+
+    final products \\= await Isolate.run(() \\=\\> parseLargeJson(response.body));
+
+    
+
+    return products;
+
+  }
+
+}
+
+## 3\\. Uzun Ömürlü Arka Plan İşleri İçin Worker Isolate
+
+Sürekli veri akışı olan (örneğin Bluetooth veri paketleri veya ses dalgası analizi) durumlarda her seferinde yeni isolate başlatmak ek yük getirir. Bunun yerine \`ReceivePort\` ve \`SendPort\` ile sürekli açık bir Worker Isolate yapılandırılmalıdır.
+
+// İki yönlü haberleşme için port mimarisi
+
+void backgroundWorker(SendPort mainSendPort) {
+
+  final workerReceivePort \\= ReceivePort();
+
+  mainSendPort.send(workerReceivePort.sendPort);
+
+  workerReceivePort.listen((message) {
+
+    if (message is List\\<int\\>) {
+
+      // Veriyi analiz et ve ana hatta geri ilet
+
+      final result \\= processBytes(message);
+
+      mainSendPort.send(result);
+
+    }
+
+  });
+
+}
+
+## 4\\. Mobil Performans ve Batarya Yönetimi İpuçları
+
+* **Hafif Görevlerde Isolate Kullanmayın:** Isolate başlatmanın ve veriyi bellekler arası kopyalamanın belirli bir maliyeti vardır. Birkaç milisaniye süren basit işlemler için Isolate açmak performansı artırmak yerine düşürür.  
+* **Görsel ve Dosya Sıkıştırma:** Kamera çıktısı fotoğrafları sunucuya göndermeden önce Isolate içinde boyutlandırmak arayüzün 120 FPS akıcılığını korur.`,
+  },
+  {
+    id: 12,
     slug: 'react-19-ile-server-actions-form-islemlerini-yeniden-dusunmek',
     title: 'React 19 ile Server Actions: Form İşlemlerini Yeniden Düşünmek',
     excerpt: 'React 19\'un getirdiği Server Actions ile form handling ve veri mutasyonlarını nasıl daha temiz yazabileceğinizi keşfedin.',
@@ -483,7 +1193,7 @@ Server Actions, full-stack React geliştirmeyi önemli ölçüde basitleştiriyo
 > **Dikkat:** Server Actions yalnızca React 19 ve üzeri sürümlerde desteklenmektedir.`,
   },
   {
-    id: 7,
+    id: 13,
     slug: 'nextjs-app-router-server-actions-cache-optimizasyonu',
     title: 'Next.js App Router ile Server Actions ve Cache Stratejileri',
     excerpt: 'Next.js App Router üzerinde Server Actions kullanımı, revalidateTag/revalidatePath ile veri önbellekleme ve sayfa hızlandırma yöntemlerini inceleyin.',
@@ -534,7 +1244,7 @@ export async function updateBio(userId: string, bio: string) {
 - **İyimser Güncellemeler (Optimistic UI)**: \`useOptimistic\` kancası kullanarak ağ gecikmesi sırasında arayüzün anında güncellenmesini sağlayın.`,
   },
   {
-    id: 8,
+    id: 14,
     slug: 'socketio-ile-olceklenebilir-chat-mimarisi',
     title: 'Socket.io ile Ölçeklenebilir Chat Mimarisi',
     excerpt: 'Binlerce eşzamanlı kullanıcıyı destekleyen, oda bazlı mesajlaşma sistemi nasıl tasarlanır? Redis adapter ve connection pooling stratejileri.',
@@ -599,7 +1309,7 @@ socket.on('message', ({ roomId, content }) => {
 3. **Connection pooling** ile kaynak yönetimi`,
   },
   {
-    id: 9,
+    id: 15,
     slug: 'unity-3d-performans-optimizasyon-rehberi',
     title: 'Unity 3D: Performans Optimizasyon Rehberi',
     excerpt: 'Unity projelerinde FPS düşüşlerini önlemek için Object Pooling, LOD, Occlusion Culling ve GC.Alloc azaltma teknikleri.',

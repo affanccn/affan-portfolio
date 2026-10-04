@@ -59,8 +59,8 @@ function WallpaperLayer({ wallpaper, theme }) {
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
         backgroundImage: `
-          linear-gradient(${gridColor.replace('0.035','0.07')} 1px, transparent 1px),
-          linear-gradient(90deg, ${gridColor.replace('0.035','0.07')} 1px, transparent 1px),
+          linear-gradient(${gridColor.replace('0.035', '0.07')} 1px, transparent 1px),
+          linear-gradient(90deg, ${gridColor.replace('0.035', '0.07')} 1px, transparent 1px),
           linear-gradient(${gridColor} 1px, transparent 1px),
           linear-gradient(90deg, ${gridColor} 1px, transparent 1px)
         `,
@@ -206,14 +206,14 @@ export default function Desktop() {
 
   // App configurations
   const APP_LIST = [
-    { id: 'projects', title: 'Projeler/',     icon: '📁', subtitle: '10 seçili proje mimarisi',        size: { w: 820, h: 560 }, defaultPos: () => ({ x: 100, y: 50 }) },
-    { id: 'about',    title: 'Hakkımda.exe', icon: '👤', subtitle: 'Geliştirici profili & FIFA kartı', size: { w: 860, h: 590 }, defaultPos: () => ({ x: 140, y: 70 }) },
-    { id: 'cv',       title: 'CV.exe',        icon: '📄', subtitle: 'Özgeçmiş görüntüleyici',          size: { w: 780, h: 580 }, defaultPos: () => ({ x: 180, y: 90 }) },
-    { id: 'contact',  title: 'İletişim.app',  icon: '✉️', subtitle: 'Email client & kanallar',         size: { w: 780, h: 540 }, defaultPos: () => ({ x: 220, y: 80 }) },
-    { id: 'terminal', title: 'Terminal',      icon: '⬛', subtitle: 'AffanOS Shell',                   size: { w: 680, h: 440 }, defaultPos: () => ({ x: 260, y: 110 }) },
-    { id: 'browser',  title: 'Tarayıcı',      icon: '🌐', subtitle: 'AffanOS Browser & demolar',        size: { w: 880, h: 600 }, defaultPos: () => ({ x: 160, y: 60 }) },
-    { id: 'settings', title: 'Ayarlar',       icon: '⚙️', subtitle: 'Tema ve kişiselleştirme',        size: { w: 580, h: 600 }, defaultPos: () => ({ x: 320, y: 70 }) },
-    { id: 'blog',     title: 'Blog/',         icon: '📰', subtitle: 'Yazılar & Makaleler',             size: { w: 720, h: 560 }, defaultPos: () => ({ x: 200, y: 55 }) },
+    { id: 'projects', title: 'Projeler/', icon: '📁', subtitle: '10 seçili proje mimarisi', size: { w: 820, h: 560 }, defaultPos: () => ({ x: 100, y: 50 }) },
+    { id: 'about', title: 'Hakkımda.exe', icon: '👤', subtitle: 'Geliştirici profili & FIFA kartı', size: { w: 860, h: 590 }, defaultPos: () => ({ x: 140, y: 70 }) },
+    { id: 'cv', title: 'CV.exe', icon: '📄', subtitle: 'Özgeçmiş görüntüleyici', size: { w: 780, h: 580 }, defaultPos: () => ({ x: 180, y: 90 }) },
+    { id: 'contact', title: 'İletişim.app', icon: '✉️', subtitle: 'Email client & kanallar', size: { w: 780, h: 540 }, defaultPos: () => ({ x: 220, y: 80 }) },
+    { id: 'terminal', title: 'Terminal', icon: '⬛', subtitle: 'AffanOS Shell', size: { w: 680, h: 440 }, defaultPos: () => ({ x: 260, y: 110 }) },
+    { id: 'browser', title: 'Tarayıcı', icon: '🌐', subtitle: 'AffanOS Browser & demolar', size: { w: 880, h: 600 }, defaultPos: () => ({ x: 160, y: 60 }) },
+    { id: 'settings', title: 'Ayarlar', icon: '⚙️', subtitle: 'Tema ve kişiselleştirme', size: { w: 580, h: 600 }, defaultPos: () => ({ x: 320, y: 70 }) },
+    { id: 'blog', title: 'Blog/', icon: '📰', subtitle: 'Yazılar & Makaleler', size: { w: 720, h: 560 }, defaultPos: () => ({ x: 200, y: 55 }) },
   ];
 
   // Mobile detection & responsive viewport observer

@@ -11,6 +11,7 @@ import mammoth from 'mammoth';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.resolve(__dirname, '../content/blog');
 const OUTPUT_PATH = path.resolve(__dirname, '../src/data/blogPosts.js');
+const META_KEYS = new Set(['title', 'slug', 'description', 'excerpt', 'category', 'tags', 'focusKeyword', 'secondaryKeywords', 'readingTime', 'readTime', 'date', 'featured']);
 
 // ─── YAML Frontmatter & Markdown Meta Parse ──────────────────────────────────
 function parseFrontmatter(content) {
@@ -29,7 +30,61 @@ function parseFrontmatter(content) {
     let arrayValues = [];
     let arrayMode = false;
 
+    const normalizedLines = [];
+    const metaKeyPattern = [...META_KEYS].join('|');
+    const splitPattern = new RegExp(`\\s+(?=(${metaKeyPattern})\\s*:)`, 'i');
+
+    const enqueueKeyValueAssignments = (key, valuePart) => {
+      const segments = valuePart.split(splitPattern);
+      if (segments.length > 1) {
+        normalizedLines.push(`${key}: ${segments[0].trim()}`);
+
+        for (const segment of segments.slice(1)) {
+          const nested = segment.trim();
+          if (!nested) continue;
+          const nestedMatch = nested.match(/^([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*)$/);
+          if (nestedMatch) {
+            enqueueKeyValueAssignments(nestedMatch[1], nestedMatch[2]);
+          } else {
+            normalizedLines.push(nested);
+          }
+        }
+        return;
+      }
+
+      normalizedLines.push(`${key}: ${valuePart.trim()}`);
+    };
+
+    const trailingKeyPattern = new RegExp(`^\\s+(?:${metaKeyPattern})\\s*:\\s*.*$`, 'i');
+
     for (const line of frontmatterStr.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+
+      const listTailMatch = trimmed.match(/^-\s*(.*?)(\s+(?:title|slug|description|excerpt|category|tags|focusKeyword|secondaryKeywords|readingTime|readTime|date|featured)\s*:\s*.*)$/i);
+      if (listTailMatch) {
+        const [, itemText, trailing] = listTailMatch;
+        if (itemText.trim()) normalizedLines.push(`- ${itemText.trim()}`);
+        const trailingMatch = trailing.trim().match(/^([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*)$/);
+        if (trailingMatch) {
+          enqueueKeyValueAssignments(trailingMatch[1], trailingMatch[2]);
+        } else {
+          normalizedLines.push(trailing.trim());
+        }
+        continue;
+      }
+
+      const inlineMatch = trimmed.match(/^([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*)$/);
+      if (!inlineMatch) {
+        normalizedLines.push(trimmed);
+        continue;
+      }
+
+      const [, key, valuePart] = inlineMatch;
+      enqueueKeyValueAssignments(key, valuePart);
+    }
+
+    for (const line of normalizedLines) {
       const trimmed = line.trim();
       if (!trimmed || trimmed.startsWith('#')) continue;
 

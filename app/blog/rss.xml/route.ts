@@ -1,5 +1,5 @@
 // app/blog/rss.xml/route.ts
-import { getAllPosts } from '@/lib/blog';
+import { getAllPosts } from '../../../lib/blog';
 
 export async function GET() {
   const posts = getAllPosts();
