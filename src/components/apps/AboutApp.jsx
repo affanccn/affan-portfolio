@@ -266,18 +266,24 @@ export default function AboutApp() {
               Affan Emirhan Çüçen
             </h1>
             <div style={{ color: '#00F5FF', fontSize: '13.5px', fontFamily: 'monospace', fontWeight: 600 }}>
-              Bilgisayar Mühendisi · Full-Stack Developer
+              Bilgisayar Mühendisi · Full-Stack & Mobile Developer
             </div>
           </div>
 
           {/* Professional Narrative */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <p style={{ color: '#cbd5e1', fontSize: '13.5px', lineHeight: 1.7, margin: 0 }}>
-              Kullanıcı deneyimini modern web standartlarıyla birleştiren, gerçek zamanlı sistem mimarileri (WebSocket/Socket.io) ve ilişkisel/NoSQL veritabanı çözümleri üzerine odaklanan bir bilgisayar mühendisiyim.
-            </p>
-            <p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: 1.65, margin: 0 }}>
-              Unity 3D ile oyun motoru fiziği ve C# bellek optimizasyonu süreçlerinde doğrudan pratik deneyim sahibiyim. Yazılım süreçlerimde Clean Architecture, tip güvenliği (TypeScript) ve teknik SEO prensiplerini temel alırım.
-            </p>
+  Modern web ve mobil uygulamalar geliştiren bir bilgisayar mühendisiyim. 
+  React, Next.js, Node.js ve Flutter ekosistemleriyle kullanıcı arayüzünden 
+  backend servislerine ve mobil uygulamalara kadar uçtan uca ürünler geliştiriyorum.
+</p>
+
+<p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: 1.65, margin: 0 }}>
+  Özellikle POS, B2B e-ticaret ve işletme yönetim sistemleri gibi gerçek dünya 
+  problemlerine yönelik projeler geliştiriyorum. TypeScript, Dart, PostgreSQL, 
+  MongoDB ve gerçek zamanlı iletişim teknolojilerini kullanarak ölçeklenebilir 
+  ve sürdürülebilir yazılım mimarileri oluşturuyorum.
+</p>
           </div>
 
           {/* Engineering Competency Matrix */}
@@ -344,7 +350,7 @@ export default function AboutApp() {
               }}>
                 <div style={{ color: '#ffffff', fontSize: '13.5px', fontWeight: 700 }}>Bartın Üniversitesi</div>
                 <div style={{ color: '#00F5FF', fontSize: '12px', fontFamily: 'monospace', marginTop: '2px' }}>
-                  Bilgisayar Mühendisliği (Lisans) · 2022 – Devam
+                  Bilgisayar Mühendisliği (Lisans) · 2022 – 2026
                 </div>
               </div>
               <div style={{
