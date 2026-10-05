@@ -3,9 +3,9 @@ import { useState, useRef } from 'react';
 // Numeric stats used strictly for the interactive FIFA easter egg card
 const FIFA_STATS = [
   { label: 'Frontend', abbr: 'FRO', value: 88, color: '#00F5FF' },
-  { label: 'Backend', abbr: 'BCK', value: 85, color: '#34d399' },
-  { label: 'Databases', abbr: 'DBS', value: 86, color: '#facc15' },
-  { label: 'Unity / C#', abbr: 'UNT', value: 80, color: '#c084fc' },
+  { label: 'Backend', abbr: 'BCK', value: 87, color: '#34d399' },
+  { label: 'Mobile', abbr: 'MOB', value: 86, color: '#60a5fa' },
+  { label: 'Database', abbr: 'DBS', value: 85, color: '#facc15' },
   { label: 'Problem Solv.', abbr: 'PRB', value: 90, color: '#fb923c' },
 ];
 
@@ -14,39 +14,76 @@ const OVR = Math.round(FIFA_STATS.reduce((a, s) => a + s.value, 0) / FIFA_STATS.
 // Credible Professional Competencies for the main portfolio
 const COMPETENCIES = [
   {
-    domain: 'Frontend Mimarisi',
-    level: 'Güçlü / Uzmanlaşmış',
+    domain: 'Frontend & Web Uygulamaları',
+    level: 'Güçlü / Üretim Deneyimi',
     badgeColor: '#00F5FF',
-    skills: ['React 19', 'JavaScript (ES6+)', 'TypeScript', 'Responsive Design', 'Tailwind CSS', 'Web Vitals Optimization'],
-    desc: 'Bileşen tabanlı temiz mimari, erişilebilirlik (WCAG) ve yüksek sayfa yükleme performansı.'
+    skills: [
+      'React 19',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'Tailwind CSS',
+      'Responsive Design',
+      'Web Performance'
+    ],
+    desc: 'Modern React ve Next.js mimarileriyle performanslı, responsive ve kullanıcı odaklı web uygulamaları geliştiriyorum.'
   },
   {
     domain: 'Backend & Gerçek Zamanlı Sistemler',
     level: 'Güçlü / Üretim Deneyimi',
     badgeColor: '#34d399',
-    skills: ['Node.js', 'Express.js', 'Socket.io (WebSockets)', 'RESTful APIs', 'Event-Driven Mimariler'],
-    desc: 'Düşük gecikmeli iki yönlü veri akışı, oda yönetimi ve ölçeklenebilir API servisleri.'
+    skills: [
+      'Node.js',
+      'Express.js',
+      'REST APIs',
+      'Socket.io',
+      'WebSockets',
+      'Event-Driven Architecture'
+    ],
+    desc: 'RESTful API servisleri, gerçek zamanlı veri akışı ve istemci-sunucu iletişimi üzerine full-stack sistemler geliştiriyorum.'
   },
   {
-    domain: 'Veritabanı Yönetimi (RDBMS & NoSQL)',
+    domain: 'Mobil Uygulama Geliştirme',
+    level: 'Yetkin / Aktif Geliştirme',
+    badgeColor: '#60a5fa',
+    skills: [
+      'Flutter',
+      'Dart',
+      'Android',
+      'iOS',
+      'Cross-Platform',
+      'API Integration'
+    ],
+    desc: 'Flutter ve Dart ile Android ve iOS platformlarında çalışan cross-platform mobil uygulamalar geliştiriyorum.'
+  },
+  {
+    domain: 'Veritabanı & Veri Mimarisi',
     level: 'Güçlü / İlişkisel Tasarım',
     badgeColor: '#facc15',
-    skills: ['MySQL (İlişkisel Şemalar, 3NF)', 'MongoDB', 'Indexing', 'Query Optimization'],
-    desc: 'Normalizasyon prensiplerine uygun veri modelleme ve performans odaklı indeksleme.'
+    skills: [
+      'PostgreSQL',
+      'MongoDB',
+      'MySQL',
+      'Prisma',
+      'Neon',
+      'Firebase',
+      'Indexing'
+    ],
+    desc: 'İlişkisel ve NoSQL veritabanlarıyla ölçeklenebilir veri modelleri, ORM yapıları ve performans odaklı sorgular tasarlıyorum.'
   },
   {
-    domain: 'Oyun Programlama & 3D',
-    level: 'Yetkin / Pratik Deneyim',
-    badgeColor: '#c084fc',
-    skills: ['Unity 3D/2D', 'C#', 'Rigidbody Fizik Motoru', 'Object Pooling', 'Blender Low-Poly'],
-    desc: 'Co-op mekanikler, raycast etkileşimleri ve bellek/GC optimizasyonlu oyun döngüleri.'
-  },
-  {
-    domain: 'Yapay Zekâ & Süreç Otomasyonu',
-    level: 'Yetkin / Uygulamalı',
+    domain: 'Ürün & İşletme Sistemleri',
+    level: 'Uygulamalı / Gerçek Projeler',
     badgeColor: '#fb923c',
-    skills: ['LLM API Entegrasyonları', 'Prompt Engineering', 'Puppeteer', 'Web Scraping Pipelines'],
-    desc: 'Otomatik veri madenciliği ve LLM destekli iş akış otomasyonları.'
+    skills: [
+      'POS Systems',
+      'ERP / Admin Panels',
+      'B2B E-Commerce',
+      'Order Management',
+      'Payment Systems',
+      'Business Automation'
+    ],
+    desc: 'Restoran, B2B ticaret ve işletme yönetimi gibi gerçek dünya problemlerine yönelik uçtan uca yazılım ürünleri geliştiriyorum.'
   },
 ];
 
