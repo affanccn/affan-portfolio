@@ -434,34 +434,78 @@ export default function Desktop() {
       </nav>
 
       {/* Recruiter Command Center (Above-the-fold Hero) */}
-      <section className="command-center" aria-labelledby="portfolio-title" data-nosnippet>
-        <div className="command-center__top">
-          <span className="command-center__eyebrow">PORTFOLYO · 2026</span>
-          <div className="command-center__status-badge" title="Available for Opportunities">
-            <span className="command-center__pulse" />
-            <span>YENİ FIRSATLARA AÇIK</span>
-          </div>
-        </div>
+<section
+  className="command-center"
+  aria-labelledby="portfolio-title"
+  data-nosnippet
+>
+  <div className="command-center__top">
+    <span className="command-center__eyebrow">
+      PORTFOLYO · 2026
+    </span>
 
-        <h1 id="portfolio-title">Affan Emirhan Çüçen</h1>
-        <div className="command-center__role">
-          Bilgisayar Mühendisi & Full-Stack Yazılım Geliştirici
-        </div>
+    <div
+      className="command-center__status-badge"
+      title="Available for Opportunities"
+    >
+      <span className="command-center__pulse" />
+      <span>YENİ FIRSATLARA AÇIK</span>
+    </div>
+  </div>
 
-        <p>
-          Yüksek performanslı web uygulamaları, gerçek zamanlı sistemler (Socket.io), Unity 3D oyun mimarisi ve yapay zekâ entegrasyonu odaklı modern yazılım çözümleri üretiyorum.
-        </p>
+  <h1 id="portfolio-title">
+    Affan Emirhan Çüçen
+  </h1>
 
-        {/* Competency tags */}
-        <div className="command-center__skills">
-          <span className="command-center__skill-tag command-center__skill-tag--highlight">React 19</span>
-          <span className="command-center__skill-tag">Node.js</span>
-          <span className="command-center__skill-tag">Socket.io</span>
-          <span className="command-center__skill-tag command-center__skill-tag--highlight">Unity 3D / C#</span>
-          <span className="command-center__skill-tag">MySQL & MongoDB</span>
-          <span className="command-center__skill-tag">Teknik SEO</span>
-        </div>
+  <div className="command-center__role">
+    Bilgisayar Mühendisi · Full-Stack & Mobile Developer
+  </div>
 
+  <p>
+    Modern web ve mobil uygulamalar geliştiren bir bilgisayar mühendisiyim.
+    React, Next.js, Node.js ve Flutter ekosistemleriyle kullanıcı
+    arayüzlerinden backend servislerine ve mobil uygulamalara kadar
+    uçtan uca ürünler geliştiriyorum.
+  </p>
+
+  <p>
+    Özellikle POS, B2B e-ticaret, işletme yönetimi ve gerçek zamanlı
+    sistemler gibi gerçek dünya problemlerine yönelik ölçeklenebilir
+    yazılım çözümleri geliştiriyorum.
+  </p>
+
+       {/* Competency Tags */}
+  <div className="command-center__skills">
+    <span className="command-center__skill-tag command-center__skill-tag--highlight">
+      React / Next.js
+    </span>
+
+    <span className="command-center__skill-tag command-center__skill-tag--highlight">
+      Flutter / Dart
+    </span>
+
+    <span className="command-center__skill-tag">
+      TypeScript
+    </span>
+
+    <span className="command-center__skill-tag">
+      Node.js
+    </span>
+
+    <span className="command-center__skill-tag">
+      PostgreSQL / MongoDB
+    </span>
+
+    <span className="command-center__skill-tag">
+      REST / Socket.io
+    </span>
+
+    <span className="command-center__skill-tag">
+      Android / iOS
+    </span>
+  </div>
+
+ 
         {/* Action buttons */}
         <div className="command-center__actions">
           <button
