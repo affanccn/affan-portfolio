@@ -109,6 +109,8 @@ function HomeDashboard({ theme, onNavigate }) {
     { label: 'AffanOS Portföy',   url: 'https://affanccn.com/',icon: '💻' },
     { label: 'GitHub Profili',    url: 'https://github.com/affanccn',             icon: '🐙' },
     { label: 'LinkedIn Profili',  url: 'https://linkedin.com/in/affanccn',         icon: '💼' },
+    {
+  label: 'ArtisanPOS Mobile',   url: 'https://github.com/affanccn/pos-system',      icon: '📱' },
   ];
 
   return (
