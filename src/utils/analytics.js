@@ -13,10 +13,7 @@ import { siteConfig } from '../config/site';
 export function trackEvent(eventName, params = {}) {
   try {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', eventName, {
-        send_to: siteConfig.gaMeasurementId,
-        ...params,
-      });
+      window.gtag('event', eventName, params);
     }
 
     if (import.meta.env?.DEV) {
