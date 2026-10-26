@@ -1,7 +1,7 @@
 // ─── Blog Posts Data Source ──────────────────────────────────────────────────
 // Bu dosya otomatik üretilmiştir → npm run blog
 // Kaynak: content/blog/ klasöründeki dosyalar
-// Son güncelleme: 26.10.2026 11:43:17
+// Son güncelleme: 26.10.2026 11:48:39
 
 export const BLOG_CATEGORIES = [
   { id: 'all', label: 'Tümü', icon: '📋' },
