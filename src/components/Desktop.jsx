@@ -13,6 +13,7 @@ import TerminalApp from './apps/TerminalApp';
 import SettingsApp from './apps/SettingsApp';
 import BrowserApp from './apps/BrowserApp';
 import BlogApp from './apps/BlogApp';
+import { BLOG_POSTS } from '../data/blogPosts';
 import { ExternalLink, FolderGit2, FileText, Mail } from 'lucide-react';
 
 const APP_COMPONENTS = {
@@ -192,29 +193,81 @@ function ContextMenu({ x, y, onClose, onOpenApp, APP_LIST, theme }) {
   );
 }
 
+// App configurations (Masaüstü Uygulama Tanımları)
+const APP_LIST = [
+  { id: 'projects', title: 'Projeler/', icon: '📁', subtitle: '10 seçili proje mimarisi', size: { w: 820, h: 560 }, defaultPos: () => ({ x: 100, y: 50 }) },
+  { id: 'about', title: 'Hakkımda.exe', icon: '👤', subtitle: 'Geliştirici profili & FIFA kartı', size: { w: 860, h: 590 }, defaultPos: () => ({ x: 140, y: 70 }) },
+  { id: 'cv', title: 'CV.exe', icon: '📄', subtitle: 'Özgeçmiş görüntüleyici', size: { w: 780, h: 580 }, defaultPos: () => ({ x: 180, y: 90 }) },
+  { id: 'contact', title: 'İletişim.app', icon: '✉️', subtitle: 'Email client & kanallar', size: { w: 780, h: 540 }, defaultPos: () => ({ x: 220, y: 80 }) },
+  { id: 'terminal', title: 'Terminal', icon: '⬛', subtitle: 'AffanOS Shell', size: { w: 680, h: 440 }, defaultPos: () => ({ x: 260, y: 110 }) },
+  { id: 'browser', title: 'Tarayıcı', icon: '🌐', subtitle: 'AffanOS Browser & demolar', size: { w: 880, h: 600 }, defaultPos: () => ({ x: 160, y: 60 }) },
+  { id: 'settings', title: 'Ayarlar', icon: '⚙️', subtitle: 'Tema ve kişiselleştirme', size: { w: 580, h: 600 }, defaultPos: () => ({ x: 320, y: 70 }) },
+  { id: 'blog', title: 'Blog/', icon: '📰', subtitle: 'Yazılar & Makaleler', size: { w: 720, h: 560 }, defaultPos: () => ({ x: 200, y: 55 }) },
+];
+
+function getInitialWindows() {
+  if (typeof window === 'undefined') return [];
+  const path = window.location.pathname.replace(/\/$/, '');
+  const hash = window.location.hash.replace(/^#/, '');
+
+  if (path.startsWith('/blog/') || path === '/blog' || hash === 'blog') {
+    const slug = path.startsWith('/blog/') ? path.replace('/blog/', '') : null;
+    const targetPost = slug ? BLOG_POSTS.find(p => p.slug === slug) : null;
+    const blogConfig = APP_LIST.find(a => a.id === 'blog');
+    if (blogConfig) {
+      return [
+        {
+          id: Date.now(),
+          appId: 'blog',
+          title: blogConfig.title,
+          icon: blogConfig.icon,
+          isMinimized: false,
+          isMaximized: false,
+          position: { x: 180, y: 60 },
+          size: blogConfig.size,
+          zIndex: 101,
+          component: <BlogApp initialPostId={targetPost ? targetPost.id : null} />,
+        },
+      ];
+    }
+  }
+
+  const matchedId = ['projects', 'about', 'cv', 'contact', 'terminal', 'browser', 'settings']
+    .find(id => path === `/${id}` || hash === id);
+
+  if (matchedId) {
+    const appConfig = APP_LIST.find(a => a.id === matchedId);
+    if (appConfig) {
+      return [
+        {
+          id: Date.now(),
+          appId: appConfig.id,
+          title: appConfig.title,
+          icon: appConfig.icon,
+          isMinimized: false,
+          isMaximized: false,
+          position: appConfig.defaultPos(),
+          size: appConfig.size,
+          zIndex: 101,
+          component: APP_COMPONENTS[appConfig.id],
+        },
+      ];
+    }
+  }
+  return [];
+}
+
 // ─── Main Desktop Component ──────────────────────────────────────────────────
 export default function Desktop() {
   const { theme, wallpaper, crtEffect } = useTheme();
   const [muted, setMuted] = useState(false);
   const { play } = useSounds(muted);
 
-  const [windows, setWindows] = useState([]);
+  const [windows, setWindows] = useState(getInitialWindows);
   const [topZ, setTopZ] = useState(100);
   const [contextMenu, setContextMenu] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const startupPlayedRef = useRef(false);
-
-  // App configurations
-  const APP_LIST = [
-    { id: 'projects', title: 'Projeler/', icon: '📁', subtitle: '10 seçili proje mimarisi', size: { w: 820, h: 560 }, defaultPos: () => ({ x: 100, y: 50 }) },
-    { id: 'about', title: 'Hakkımda.exe', icon: '👤', subtitle: 'Geliştirici profili & FIFA kartı', size: { w: 860, h: 590 }, defaultPos: () => ({ x: 140, y: 70 }) },
-    { id: 'cv', title: 'CV.exe', icon: '📄', subtitle: 'Özgeçmiş görüntüleyici', size: { w: 780, h: 580 }, defaultPos: () => ({ x: 180, y: 90 }) },
-    { id: 'contact', title: 'İletişim.app', icon: '✉️', subtitle: 'Email client & kanallar', size: { w: 780, h: 540 }, defaultPos: () => ({ x: 220, y: 80 }) },
-    { id: 'terminal', title: 'Terminal', icon: '⬛', subtitle: 'AffanOS Shell', size: { w: 680, h: 440 }, defaultPos: () => ({ x: 260, y: 110 }) },
-    { id: 'browser', title: 'Tarayıcı', icon: '🌐', subtitle: 'AffanOS Browser & demolar', size: { w: 880, h: 600 }, defaultPos: () => ({ x: 160, y: 60 }) },
-    { id: 'settings', title: 'Ayarlar', icon: '⚙️', subtitle: 'Tema ve kişiselleştirme', size: { w: 580, h: 600 }, defaultPos: () => ({ x: 320, y: 70 }) },
-    { id: 'blog', title: 'Blog/', icon: '📰', subtitle: 'Yazılar & Makaleler', size: { w: 720, h: 560 }, defaultPos: () => ({ x: 200, y: 55 }) },
-  ];
 
   // Mobile detection & responsive viewport observer
   useEffect(() => {
@@ -434,11 +487,10 @@ export default function Desktop() {
       </nav>
 
       {/* Recruiter Command Center (Above-the-fold Hero) */}
-<section
-  className="command-center"
-  aria-labelledby="portfolio-title"
-  data-nosnippet
->
+      <section
+        className="command-center"
+        aria-labelledby="portfolio-title"
+      >
   <div className="command-center__top">
     <span className="command-center__eyebrow">
       PORTFOLYO · 2026

@@ -175,7 +175,7 @@ function FifaCard() {
         }}>
           <img
             src="/images/memoji.png"
-            alt="Affan"
+            alt="Affan Emirhan Çüçen - Bilgisayar Mühendisi ve Full-Stack Yazılım Geliştirici"
             width="120"
             height="120"
             decoding="async"

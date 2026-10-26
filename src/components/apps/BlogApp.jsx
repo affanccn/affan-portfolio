@@ -6,10 +6,10 @@ import {
   formatBlogDate,
   getCategoryInfo,
 } from '../../data/blogPosts';
+import { setBlogPostSEO, resetDefaultSEO } from '../../utils/seo';
 import {
   ArrowLeft,
   Clock,
-  Tag,
   Search,
   BookOpen,
   Calendar,
@@ -29,15 +29,24 @@ export default function BlogApp({ initialPostId = null }) {
   const [selectedPost, setSelectedPost] = useState(
     initialPostId ? BLOG_POSTS.find(p => p.id === initialPostId) : null
   );
+  const [prevInitialId, setPrevInitialId] = useState(initialPostId);
+  if (initialPostId !== prevInitialId) {
+    setPrevInitialId(initialPostId);
+    setSelectedPost(initialPostId ? BLOG_POSTS.find(p => p.id === initialPostId) : null);
+  }
   const contentRef = useRef(null);
 
-  // initialPostId değiştiğinde yazıyı seç
+  // SEO, canonical & Article / BlogPosting şema senkronizasyonu
   useEffect(() => {
-    if (initialPostId) {
-      const post = BLOG_POSTS.find(p => p.id === initialPostId);
-      if (post) setSelectedPost(post);
+    if (selectedPost) {
+      setBlogPostSEO(selectedPost);
+    } else {
+      resetDefaultSEO();
     }
-  }, [initialPostId]);
+    return () => {
+      resetDefaultSEO();
+    };
+  }, [selectedPost]);
 
   // Scroll to top on post change
   useEffect(() => {

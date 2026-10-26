@@ -4,7 +4,18 @@ import { useTheme } from '../contexts/ThemeContext';
 
 export default function MobileShell({ apps, onOpenApp, onMuteToggle, muted }) {
   const { theme } = useTheme();
-  const [activeApp, setActiveApp] = useState(null);
+  const [activeApp, setActiveApp] = useState(() => {
+    if (typeof window === 'undefined' || !apps || apps.length === 0) return null;
+    const path = window.location.pathname.replace(/\/$/, '');
+    const hash = window.location.hash.replace(/^#/, '');
+
+    const targetId = path.startsWith('/blog') || hash === 'blog'
+      ? 'blog'
+      : ['projects', 'about', 'cv', 'contact', 'terminal', 'browser', 'settings']
+          .find(id => path === `/${id}` || hash === id);
+
+    return targetId ? apps.find(a => a.id === targetId) || null : null;
+  });
   const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
@@ -164,7 +175,7 @@ export default function MobileShell({ apps, onOpenApp, onMuteToggle, muted }) {
           <div className="mobile-shell__avatar">
             <img
               src="/images/memoji.png"
-              alt="Affan Emirhan Çüçen"
+              alt="Affan Emirhan Çüçen - Full-Stack & Unity Yazılım Geliştirici"
               width="54"
               height="54"
               loading="lazy"

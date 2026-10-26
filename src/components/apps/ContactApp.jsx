@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Send, Copy, Check, ExternalLink } from 'lucide-react';
+import { trackEvent } from '../../utils/analytics';
 
 const CONTACT_EMAIL = 'emrhn.ccn@gmail.com';
 const EMPTY_FORM = { name: '', email: '', subject: '', body: '' };
@@ -31,6 +32,10 @@ export default function ContactApp() {
     try {
       await navigator.clipboard.writeText(CONTACT_EMAIL);
       setCopied(true);
+      trackEvent('select_content', {
+        content_type: 'copy_email',
+        email: CONTACT_EMAIL,
+      });
       setTimeout(() => setCopied(false), 2500);
     } catch {
       // Fallback
@@ -47,6 +52,15 @@ export default function ContactApp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    trackEvent('generate_lead', {
+      method: 'contact_form',
+      subject: form.subject.trim(),
+      name: form.name.trim(),
+    });
+    trackEvent('submit_contact_form', {
+      subject: form.subject.trim(),
+    });
+
     const mailBody = [
       `Merhaba Affan Emirhan,`,
       '',

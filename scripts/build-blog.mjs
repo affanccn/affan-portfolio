@@ -237,6 +237,43 @@ export function getCategoryInfo(categoryId) {
 `;
 }
 
+// ─── sitemap.xml üret ──────────────────────────────────────────────────────
+function generateSitemap(posts) {
+  const baseUrl = 'https://affanccn.com';
+  const today = new Date().toISOString().split('T')[0];
+
+  const urls = [
+    `  <url>
+    <loc>${baseUrl}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>`,
+    `  <url>
+    <loc>${baseUrl}/blog</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>`,
+  ];
+
+  for (const post of posts) {
+    const postDate = post.date || today;
+    urls.push(`  <url>
+    <loc>${baseUrl}/blog/${post.slug}</loc>
+    <lastmod>${postDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`);
+  }
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>
+`;
+}
+
 // ─── Ana akış ───────────────────────────────────────────────────────────────
 async function main() {
   if (!fs.existsSync(CONTENT_DIR)) {
@@ -245,7 +282,7 @@ async function main() {
   }
 
   const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md') || f.endsWith('.docx'));
-  console.log(`📄 ${files.length} adet dosya (.md / .docx) bulundu.\\n`);
+  console.log(`📄 ${files.length} adet dosya (.md / .docx) bulundu.\n`);
 
   if (files.length === 0) {
     console.log('⚠️  content/blog/ klasörüne .md veya .docx dosyalarını atın, sonra tekrar çalıştırın.');
@@ -260,18 +297,15 @@ async function main() {
     if (file.endsWith('.docx')) {
       const result = await mammoth.extractRawText({path: filePath});
       raw = result.value;
-      // DOCX dosyalarından çıkarılan düz metinde yeni satırlar bazen bozulabilir,
-      // Google Docs markdown içeriğini saf text olarak aldığımızda genelde sorunsuz gelir.
     } else {
       raw = fs.readFileSync(filePath, 'utf-8');
     }
 
     const { meta, body } = parseFrontmatter(raw);
 
-    if (!meta.title) meta.title = file.replace(/\\.md(\\.docx)?$/, '').replace(/-/g, ' ');
+    if (!meta.title) meta.title = file.replace(/\.md(\.docx)?$/, '').replace(/-/g, ' ');
 
-    // description veya excerpt kullanıcının seçimine göre
-    const excerpt = meta.description || meta.excerpt || body.substring(0, 160).replace(/[#*\`\\n]/g, '').trim() + '...';
+    const excerpt = meta.description || meta.excerpt || body.substring(0, 160).replace(/[#*`\n]/g, '').trim() + '...';
 
     posts.push({
       slug: meta.slug || createSlug(meta.title),
@@ -294,6 +328,18 @@ async function main() {
 
   fs.writeFileSync(OUTPUT_PATH, generate(posts), 'utf-8');
   console.log(`\n💾 blogPosts.js güncellendi (${posts.length} yazı)`);
+
+  // Sitemap.xml otomatik oluşturma (Canonical 200 URLs)
+  const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
+  const sitemapXml = generateSitemap(posts);
+  fs.writeFileSync(SITEMAP_PATH, sitemapXml, 'utf-8');
+  console.log(`🗺️  sitemap.xml güncellendi (${posts.length + 2} URL eklendi)`);
+
+  const DIST_DIR = path.resolve(__dirname, '../dist');
+  if (fs.existsSync(DIST_DIR)) {
+    fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapXml, 'utf-8');
+  }
+
   console.log('🚀 Artık npm run dev veya git push yapabilirsiniz!');
 }
 

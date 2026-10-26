@@ -3,16 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Search Console Doğrulama -->
+    <meta name="google-site-verification" content="%VITE_GOOGLE_SITE_VERIFICATION%" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LKY1EH1EMZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+
+      gtag('config', 'G-LKY1EH1EMZ');
+    </script>
+
     <title>Affan Emirhan Çüçen | Full-Stack, Unity ve AI Geliştirici</title>
     <meta
       name="description"
-      content="Affan Emirhan Çüçen'in full-stack web geliştirme, Unity oyun programlama ve yapay zekâ entegrasyonu projelerini keşfedin."
+      content="Affan Emirhan Çüçen'in full-stack web geliştirme (React, Next.js, Node.js), mobil uygulama (Flutter), Unity 3D oyun programlama ve AI entegrasyonu projelerini keşfedin."
     />
-    <meta name="keywords" content="Affan Emirhan Çüçen, affanccn, Full-Stack Developer, Yazılım Geliştirici, React, Node.js, Unity 3D, Bilgisayar Mühendisi" />
     <meta name="author" content="Affan Emirhan Çüçen" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#020617" />
 
+    <!-- Canonical URL Mimarisi (Tekil Apex Standardı) -->
     <link rel="canonical" href="https://affanccn.com/" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icon.png" />
     <link rel="apple-touch-icon" href="/icon.png" />
@@ -38,7 +53,7 @@
     <meta property="og:title" content="Affan Emirhan Çüçen | Full-Stack, Unity ve AI Geliştirici" />
     <meta
       property="og:description"
-      content="Full-stack web geliştirme, gerçek zamanlı sistemler (Socket.io), Unity oyun programlama ve AI entegrasyonu projeleri."
+      content="Full-stack web geliştirme, gerçek zamanlı sistemler (Socket.io), Unity oyun programlama ve yapay zekâ entegrasyonu projeleri."
     />
     <meta property="og:image" content="https://affanccn.com/images/og-preview.png" />
     <meta property="og:image:width" content="1200" />
@@ -52,10 +67,11 @@
     <meta name="twitter:title" content="Affan Emirhan Çüçen | Full-Stack, Unity ve AI Geliştirici" />
     <meta
       name="twitter:description"
-      content="Full-stack web geliştirme, gerçek zamanlı sistemler (Socket.io), Unity oyun programlama ve AI entegrasyonu projeleri."
+      content="Full-stack web geliştirme, gerçek zamanlı sistemler (Socket.io), Unity oyun programlama ve yapay zekâ entegrasyonu projeleri."
     />
     <meta name="twitter:image" content="https://affanccn.com/images/og-preview.png" />
 
+    <!-- Schema.org Yapılandırılmış Veri (JSON-LD) - Google Search Console Tam Uyumlu -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -64,8 +80,14 @@
             "@type": "Person",
             "@id": "https://affanccn.com/#person",
             "name": "Affan Emirhan Çüçen",
+            "alternateName": "affanccn",
             "url": "https://affanccn.com/",
-            "jobTitle": "Bilgisayar Mühendisi & Yazılım Geliştirici",
+            "image": "https://affanccn.com/icon.png",
+            "jobTitle": "Bilgisayar Mühendisi & Full-Stack Yazılım Geliştirici",
+            "email": "emrhn.ccn@gmail.com",
+            "worksFor": {
+              "@id": "https://affanccn.com/#organization"
+            },
             "alumniOf": [
               {
                 "@type": "CollegeOrUniversity",
@@ -78,17 +100,85 @@
             ],
             "knowsAbout": [
               "React",
+              "Next.js",
               "Node.js",
-              "JavaScript",
               "TypeScript",
-              "Socket.io",
+              "Flutter",
               "Unity 3D",
               "C#",
-              "MySQL",
+              "PostgreSQL",
+              "Redis",
               "MongoDB",
-              "REST API",
+              "Socket.io",
+              "Docker",
+              "REST API Mimarisi",
               "Teknik SEO"
             ],
+            "sameAs": [
+              "https://github.com/affanccn",
+              "https://www.linkedin.com/in/affanccn"
+            ]
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://affanccn.com/#organization",
+            "name": "Affan Emirhan Çüçen - Yazılım Geliştirme Hizmetleri",
+            "legalName": "Affan Emirhan Çüçen",
+            "alternateName": "AffanOS",
+            "url": "https://affanccn.com/",
+            "logo": "https://affanccn.com/icon.png",
+            "image": "https://affanccn.com/images/og-preview.png",
+            "email": "emrhn.ccn@gmail.com",
+            "founder": {
+              "@id": "https://affanccn.com/#person"
+            },
+            "priceRange": "$$",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "TR"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Worldwide"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Yazılım Mühendisliği Hizmetleri",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Full-Stack Web & SaaS Uygulama Geliştirme",
+                    "description": "React, Next.js ve Node.js teknolojileriyle kurumsal ölçekte, yüksek performanslı web çözümleri."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Cross-Platform Mobil Uygulama Geliştirme",
+                    "description": "Flutter ve Dart ile iOS ve Android platformları için tek kod tabanından optimize mobil uygulamalar."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Unity 3D Oyun Geliştirme & Performans Optimizasyonu",
+                    "description": "C# ve Unity motoru ile masaüstü ve mobil oyun geliştirme, optimizasyon ve mimari kurulum."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Gerçek Zamanlı Sistemler & API Entegrasyonu",
+                    "description": "Socket.io, Redis ve Event-Driven mimariler ile düşük gecikmeli veri akışı ve güvenli API entegrasyonları."
+                  }
+                }
+              ]
+            },
             "sameAs": [
               "https://github.com/affanccn",
               "https://www.linkedin.com/in/affanccn"
@@ -99,11 +189,76 @@
             "@id": "https://affanccn.com/#website",
             "url": "https://affanccn.com/",
             "name": "Affan Emirhan Çüçen Portföyü · AffanOS",
-            "description": "Full-stack web geliştirme, Unity oyun programlama ve yapay zekâ entegrasyonu projelerinden oluşan kişisel portföy.",
+            "description": "Full-stack web geliştirme, mobil uygulama, Unity oyun programlama ve yapay zekâ entegrasyonu projelerinden oluşan kişisel portföy.",
             "inLanguage": "tr-TR",
-            "author": {
-              "@id": "https://affanccn.com/#person"
+            "publisher": {
+              "@id": "https://affanccn.com/#organization"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://affanccn.com/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
             }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://affanccn.com/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana Sayfa",
+                "item": "https://affanccn.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Projeler",
+                "item": "https://affanccn.com/#projects"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Blog & Makaleler",
+                "item": "https://affanccn.com/#blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "İletişim",
+                "item": "https://affanccn.com/#contact"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://affanccn.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Affan Emirhan Çüçen hangi teknolojilerde uzmanlaşmıştır?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "React, Next.js, Node.js, TypeScript, Flutter, Unity 3D (C#), PostgreSQL, Redis, MongoDB ve Socket.io teknolojilerinde uçtan uca mimari ve yazılım geliştirme tecrübesine sahiptir."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Yeni iş veya freelance proje tekliflerine açık mısınız?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Evet; tam zamanlı yazılım mühendisliği pozisyonları, danışmanlık ve B2B freelance projeler için iş birliklerine açıktır. Sitedeki iletişim formu veya LinkedIn üzerinden irtibat kurulabilir."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Geliştirilen projelerde teknik SEO ve performans optimizasyonu nasıl sağlanır?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Projelerde Core Web Vitals kriterleri, semantik HTML5 mimarisi, Schema.org JSON-LD zengin veri yapıları, WebP görseller ve sunucu seviyesinde 301 yönlendirme/önbellekleme stratejileri standart olarak uygulanır."
+                }
+              }
+            ]
           }
         ]
       }
@@ -111,12 +266,22 @@
   </head>
   <body>
     <div id="root">
-      <h1 style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-        Affan Emirhan Çüçen - Yazılım Geliştirici (affanccn)
-      </h1>
-      <p style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-        Affan Emirhan Çüçen (affanccn). Full-stack web geliştirme (React, Node.js), Unity 3D oyun programlama ve AI (Yapay Zeka) entegrasyonu projelerim.
-      </p>
+      <!-- Arama Motoru Botları & Erişilebilirlik için Semantik Ön Yükleme İskeleti (JS Mount Öncesi) -->
+      <header style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+        <h1>Affan Emirhan Çüçen — Bilgisayar Mühendisi & Full-Stack Geliştirici (affanccn)</h1>
+        <p>
+          Affan Emirhan Çüçen'in resmi portföy web sitesi (AffanOS). Modern web uygulamaları (React, Next.js, Node.js), mobil uygulamalar (Flutter), Unity 3D oyun geliştirme ve yapay zekâ entegrasyonu çözümleri.
+        </p>
+      </header>
+      <nav style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+        <ul>
+          <li><a href="https://affanccn.com/#projects">Projeler ve Yazılım Mimarileri</a></li>
+          <li><a href="https://affanccn.com/#blog">Teknik Blog ve Mühendislik Makaleleri</a></li>
+          <li><a href="https://affanccn.com/#about">Hakkımda ve Yetkinlikler</a></li>
+          <li><a href="https://affanccn.com/#cv">Özgeçmiş (CV)</a></li>
+          <li><a href="https://affanccn.com/#contact">İletişim ve İş Birliği</a></li>
+        </ul>
+      </nav>
     </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

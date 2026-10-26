@@ -289,7 +289,7 @@ function ProjectDetail({ project, onBack }) {
         {project.image ? (
           <img
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} - Affan Emirhan Çüçen Yazılım Mimarisi ve Proje Görseli`}
             loading="lazy"
             decoding="async"
             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.75 }}
@@ -400,6 +400,8 @@ function ProjectDetail({ project, onBack }) {
             href={project.liveDemo}
             target="_blank"
             rel="noopener noreferrer"
+            data-project-link="true"
+            data-project-title={project.title}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               padding: '10px 18px', borderRadius: '8px',
@@ -417,6 +419,8 @@ function ProjectDetail({ project, onBack }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
+            data-project-link="true"
+            data-project-title={project.title}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               padding: '10px 18px', borderRadius: '8px',
